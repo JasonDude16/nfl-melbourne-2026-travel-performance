@@ -1,0 +1,39 @@
+/* Keep long code from widening the page. */
+div.sourceCode,
+.cell-code,
+.cell-output pre {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Keep source and console lines intact so overflow scrolls instead of wraps. */
+pre.sourceCode,
+pre > code.sourceCode,
+.cell-output pre {
+  white-space: pre !important;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+/* Manuscript notebook previews add Jupyter-style In [ ] gutters and can nest
+   an output cell inside its code cell. Flatten those wrappers so code controls,
+   tables, figures, and prose all use the same content edge. */
+body.quarto-notebook .cell-container {
+  display: block;
+}
+
+body.quarto-notebook .cell-decorator {
+  display: none;
+}
+
+body.quarto-notebook .cell-container .cell {
+  width: 100%;
+  min-width: 0;
+}
+
+body.quarto-notebook .cell-container .cell-container {
+  margin-left: 0;
+  margin-right: 0;
+}

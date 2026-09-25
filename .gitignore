@@ -1,0 +1,9 @@
+.Rproj.user/
+.DS_Store
+.Rhistory
+_manuscript/
+_freeze/
+.quarto/
+drafts/
+data/derived
+supplement/

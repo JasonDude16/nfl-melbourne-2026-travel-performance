@@ -1,0 +1,60 @@
+project:
+  type: manuscript
+  output-dir: _manuscript
+  execute-dir: project
+  render:
+    - index.qmd
+    - notebooks/analysis.qmd
+
+manuscript:
+  article: index.qmd
+  notebooks:
+    - notebook: notebooks/analysis.qmd
+      title: "NFL Melbourne 2026: reproducible analysis"
+  resources:
+    - data/derived/*.csv
+    - figures/final/*
+    - tables/final/*
+    - supplement/*.md
+
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: Show code
+    theme: cosmo
+    css: styles.css
+    format-links:
+      - docx
+      - format: typst
+        text: PDF
+        icon: file-pdf
+  docx:
+    toc: false
+  typst:
+    toc: false
+    citeproc: true
+    papersize: us-letter
+    fontsize: 11pt
+    margin:
+      x: 1in
+      y: 1in
+
+bibliography: references/references.bib
+number-sections: true
+notebook-links: global
+quarto-required: ">=1.4.0"
+
+execute:
+  freeze: false
+  warning: false
+  message: false
+
+knitr:
+  opts_chunk:
+    collapse: false
+    comment: "#>"
+    message: false
+    warning: false
+    fig.align: center
+    out.width: "100%"

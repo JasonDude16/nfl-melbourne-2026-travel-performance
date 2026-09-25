@@ -1,0 +1,3200 @@
+{
+  "kind": "group",
+  "name": "Melbourne travel and game context",
+  "children": [
+    {
+      "kind": "rect",
+      "name": "White background",
+      "id": "e0001",
+      "x": 0,
+      "y": 0,
+      "w": 1600,
+      "h": 1200,
+      "fill": "#FFFFFF",
+      "stroke": null,
+      "sw": 1.15,
+      "r": 0
+    },
+    {
+      "kind": "group",
+      "name": "01 Title",
+      "id": "e0002",
+      "children": [
+        {
+          "kind": "text",
+          "name": "Figure title",
+          "id": "e0003",
+          "x": 24,
+          "y": 22,
+          "w": 1552,
+          "h": 49.559999999999995,
+          "lines": [
+            "2026 Melbourne travel and game context"
+          ],
+          "text": "2026 Melbourne travel and game context",
+          "size": 42,
+          "bold": true,
+          "italic": false,
+          "color": "#101F36",
+          "align": "center",
+          "lh": 49.559999999999995
+        }
+      ]
+    },
+    {
+      "kind": "group",
+      "name": "02 Header context cards",
+      "id": "e0004",
+      "children": [
+        {
+          "kind": "group",
+          "name": "Origin time zone",
+          "id": "e0005",
+          "children": [
+            {
+              "kind": "rect",
+              "name": "Card background",
+              "id": "e0006",
+              "x": 24.0,
+              "y": 82,
+              "w": 506.6666666666667,
+              "h": 92,
+              "fill": "#F2F5F8",
+              "stroke": null,
+              "sw": 1.15,
+              "r": 12
+            },
+            {
+              "kind": "group",
+              "name": "globe icon",
+              "id": "e0007",
+              "children": [
+                {
+                  "kind": "ellipse",
+                  "name": "Globe outline",
+                  "id": "e0008",
+                  "x": 47.333333333333336,
+                  "y": 111.33333333333333,
+                  "w": 33.333333333333336,
+                  "h": 33.333333333333336,
+                  "fill": null,
+                  "stroke": "#101F36",
+                  "sw": 2.5
+                },
+                {
+                  "kind": "ellipse",
+                  "name": "Longitude",
+                  "id": "e0009",
+                  "x": 56.5,
+                  "y": 111.33333333333333,
+                  "w": 15.0,
+                  "h": 33.333333333333336,
+                  "fill": null,
+                  "stroke": "#101F36",
+                  "sw": 2.5
+                },
+                {
+                  "kind": "line",
+                  "name": "Equator",
+                  "id": "e0010",
+                  "x": 47.333333333333336,
+                  "y": 128.0,
+                  "x2": 80.66666666666667,
+                  "y2": 128.0,
+                  "stroke": "#101F36",
+                  "sw": 2.5
+                },
+                {
+                  "kind": "line",
+                  "name": "North latitude",
+                  "id": "e0011",
+                  "x": 50.666666666666664,
+                  "y": 118.83333333333333,
+                  "x2": 77.33333333333334,
+                  "y2": 118.83333333333333,
+                  "stroke": "#101F36",
+                  "sw": 2.0833333333333335
+                },
+                {
+                  "kind": "line",
+                  "name": "South latitude",
+                  "id": "e0012",
+                  "x": 50.666666666666664,
+                  "y": 137.16666666666666,
+                  "x2": 77.33333333333334,
+                  "y2": 137.16666666666666,
+                  "stroke": "#101F36",
+                  "sw": 2.0833333333333335
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "name": "Context heading",
+              "id": "e0013",
+              "x": 104.0,
+              "y": 100,
+              "w": 410.6666666666667,
+              "h": 26,
+              "lines": [
+                "Origin time zone"
+              ],
+              "text": "Origin time zone",
+              "size": 22,
+              "bold": true,
+              "italic": false,
+              "color": "#101F36",
+              "align": "left",
+              "lh": 26
+            },
+            {
+              "kind": "text",
+              "name": "Context description",
+              "id": "e0014",
+              "x": 104.0,
+              "y": 132,
+              "w": 410.6666666666667,
+              "h": 23,
+              "lines": [
+                "Both teams: Pacific (PDT)"
+              ],
+              "text": "Both teams: Pacific (PDT)",
+              "size": 20.5,
+              "bold": false,
+              "italic": false,
+              "color": "#263445",
+              "align": "left",
+              "lh": 23
+            }
+          ]
+        },
+        {
+          "kind": "group",
+          "name": "Game venue",
+          "id": "e0015",
+          "children": [
+            {
+              "kind": "rect",
+              "name": "Card background",
+              "id": "e0016",
+              "x": 546.6666666666667,
+              "y": 82,
+              "w": 506.6666666666667,
+              "h": 92,
+              "fill": "#F2F5F8",
+              "stroke": null,
+              "sw": 1.15,
+              "r": 12
+            },
+            {
+              "kind": "group",
+              "name": "stadium icon",
+              "id": "e0017",
+              "children": [
+                {
+                  "kind": "ellipse",
+                  "name": "Stadium lower ring",
+                  "id": "e0018",
+                  "x": 569.1666666666667,
+                  "y": 125.5,
+                  "w": 35.0,
+                  "h": 17.5,
+                  "fill": "#F2F5F8",
+                  "stroke": "#101F36",
+                  "sw": 2.5
+                },
+                {
+                  "kind": "rect",
+                  "name": "Stadium wall",
+                  "id": "e0019",
+                  "x": 569.1666666666667,
+                  "y": 119.66666666666667,
+                  "w": 35.0,
+                  "h": 15.0,
+                  "fill": "#F2F5F8",
+                  "stroke": "#101F36",
+                  "sw": 2.0833333333333335,
+                  "r": 0
+                },
+                {
+                  "kind": "ellipse",
+                  "name": "Stadium upper ring",
+                  "id": "e0020",
+                  "x": 569.1666666666667,
+                  "y": 112.16666666666667,
+                  "w": 35.0,
+                  "h": 17.5,
+                  "fill": "#F2F5F8",
+                  "stroke": "#101F36",
+                  "sw": 2.5
+                },
+                {
+                  "kind": "ellipse",
+                  "name": "Playing field",
+                  "id": "e0021",
+                  "x": 574.1666666666667,
+                  "y": 116.33333333333333,
+                  "w": 25.0,
+                  "h": 8.333333333333334,
+                  "fill": null,
+                  "stroke": "#101F36",
+                  "sw": 1.6666666666666667
+                },
+                {
+                  "kind": "line",
+                  "name": "Stadium bay 1",
+                  "id": "e0022",
+                  "x": 575.0000000000001,
+                  "y": 130.5,
+                  "x2": 575.0000000000001,
+                  "y2": 139.66666666666666,
+                  "stroke": "#101F36",
+                  "sw": 2.0833333333333335
+                },
+                {
+                  "kind": "line",
+                  "name": "Stadium bay 2",
+                  "id": "e0023",
+                  "x": 582.5000000000001,
+                  "y": 130.5,
+                  "x2": 582.5000000000001,
+                  "y2": 139.66666666666666,
+                  "stroke": "#101F36",
+                  "sw": 2.0833333333333335
+                },
+                {
+                  "kind": "line",
+                  "name": "Stadium bay 3",
+                  "id": "e0024",
+                  "x": 590.8333333333334,
+                  "y": 130.5,
+                  "x2": 590.8333333333334,
+                  "y2": 139.66666666666666,
+                  "stroke": "#101F36",
+                  "sw": 2.0833333333333335
+                },
+                {
+                  "kind": "line",
+                  "name": "Stadium bay 4",
+                  "id": "e0025",
+                  "x": 598.3333333333334,
+                  "y": 130.5,
+                  "x2": 598.3333333333334,
+                  "y2": 139.66666666666666,
+                  "stroke": "#101F36",
+                  "sw": 2.0833333333333335
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "name": "Context heading",
+              "id": "e0026",
+              "x": 626.6666666666667,
+              "y": 100,
+              "w": 410.6666666666667,
+              "h": 26,
+              "lines": [
+                "Game venue"
+              ],
+              "text": "Game venue",
+              "size": 22,
+              "bold": true,
+              "italic": false,
+              "color": "#101F36",
+              "align": "left",
+              "lh": 26
+            },
+            {
+              "kind": "text",
+              "name": "Context description",
+              "id": "e0027",
+              "x": 626.6666666666667,
+              "y": 132,
+              "w": 410.6666666666667,
+              "h": 23,
+              "lines": [
+                "Melbourne Cricket Ground"
+              ],
+              "text": "Melbourne Cricket Ground",
+              "size": 20.5,
+              "bold": false,
+              "italic": false,
+              "color": "#263445",
+              "align": "left",
+              "lh": 23
+            }
+          ]
+        },
+        {
+          "kind": "group",
+          "name": "Shared kickoff",
+          "id": "e0028",
+          "children": [
+            {
+              "kind": "rect",
+              "name": "Card background",
+              "id": "e0029",
+              "x": 1069.3333333333335,
+              "y": 82,
+              "w": 506.6666666666667,
+              "h": 92,
+              "fill": "#F2F5F8",
+              "stroke": null,
+              "sw": 1.15,
+              "r": 12
+            },
+            {
+              "kind": "group",
+              "name": "clock icon",
+              "id": "e0030",
+              "children": [
+                {
+                  "kind": "ellipse",
+                  "name": "Clock face",
+                  "id": "e0031",
+                  "x": 1093.5000000000002,
+                  "y": 112.16666666666667,
+                  "w": 31.666666666666668,
+                  "h": 31.666666666666668,
+                  "fill": null,
+                  "stroke": "#101F36",
+                  "sw": 2.5
+                },
+                {
+                  "kind": "line",
+                  "name": "Hour hand",
+                  "id": "e0032",
+                  "x": 1109.3333333333335,
+                  "y": 128.0,
+                  "x2": 1109.3333333333335,
+                  "y2": 118.0,
+                  "stroke": "#101F36",
+                  "sw": 2.5
+                },
+                {
+                  "kind": "line",
+                  "name": "Minute hand",
+                  "id": "e0033",
+                  "x": 1109.3333333333335,
+                  "y": 128.0,
+                  "x2": 1117.6666666666667,
+                  "y2": 133.0,
+                  "stroke": "#101F36",
+                  "sw": 2.5
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "name": "Context heading",
+              "id": "e0034",
+              "x": 1149.3333333333335,
+              "y": 100,
+              "w": 410.6666666666667,
+              "h": 26,
+              "lines": [
+                "Shared kickoff"
+              ],
+              "text": "Shared kickoff",
+              "size": 22,
+              "bold": true,
+              "italic": false,
+              "color": "#101F36",
+              "align": "left",
+              "lh": 26
+            },
+            {
+              "kind": "text",
+              "name": "Context description",
+              "id": "e0035",
+              "x": 1149.3333333333335,
+              "y": 132,
+              "w": 410.6666666666667,
+              "h": 23,
+              "lines": [
+                "Fri Sep 11, 10:37 AEST"
+              ],
+              "text": "Fri Sep 11, 10:37 AEST",
+              "size": 20.5,
+              "bold": false,
+              "italic": false,
+              "color": "#263445",
+              "align": "left",
+              "lh": 23
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "group",
+      "name": "03 49ERS panel",
+      "id": "e0036",
+      "children": [
+        {
+          "kind": "rect",
+          "name": "Panel background and border",
+          "id": "e0037",
+          "x": 24,
+          "y": 194,
+          "w": 600,
+          "h": 620,
+          "fill": "#FFFFFF",
+          "stroke": "#AA0000",
+          "sw": 1.35,
+          "r": 10
+        },
+        {
+          "kind": "group",
+          "name": "Team header",
+          "id": "e0038",
+          "children": [
+            {
+              "kind": "rect",
+              "name": "Team header background",
+              "id": "e0039",
+              "x": 24,
+              "y": 194,
+              "w": 600,
+              "h": 76,
+              "fill": "#AA0000",
+              "stroke": null,
+              "sw": 1.15,
+              "r": 10
+            },
+            {
+              "kind": "rect",
+              "name": "Header lower square edge",
+              "id": "e0040",
+              "x": 24,
+              "y": 216,
+              "w": 600,
+              "h": 54,
+              "fill": "#AA0000",
+              "stroke": null,
+              "sw": 1.15,
+              "r": 0
+            },
+            {
+              "kind": "group",
+              "name": "Replaceable team logo placeholder",
+              "id": "e0041",
+              "children": [
+                {
+                  "kind": "rect",
+                  "name": "Placeholder border",
+                  "id": "e0042",
+                  "x": 52,
+                  "y": 207,
+                  "w": 88,
+                  "h": 50,
+                  "fill": null,
+                  "stroke": "#FFFFFF",
+                  "sw": 1.8,
+                  "r": 7
+                },
+                {
+                  "kind": "text",
+                  "name": "Placeholder initials",
+                  "id": "e0043",
+                  "x": 52,
+                  "y": 217,
+                  "w": 88,
+                  "h": 34.22,
+                  "lines": [
+                    "SF"
+                  ],
+                  "text": "SF",
+                  "size": 29,
+                  "bold": true,
+                  "italic": false,
+                  "color": "#FFFFFF",
+                  "align": "center",
+                  "lh": 34.22
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "name": "Team name",
+              "id": "e0044",
+              "x": 168,
+              "y": 207,
+              "w": 416,
+              "h": 54.279999999999994,
+              "lines": [
+                "49ERS"
+              ],
+              "text": "49ERS",
+              "size": 46,
+              "bold": true,
+              "italic": false,
+              "color": "#FFFFFF",
+              "align": "left",
+              "lh": 54.279999999999994
+            }
+          ]
+        },
+        {
+          "kind": "group",
+          "name": "Travel path and timing",
+          "id": "e0045",
+          "children": [
+            {
+              "kind": "rect",
+              "name": "Section heading background",
+              "id": "e0046",
+              "x": 40,
+              "y": 286,
+              "w": 568,
+              "h": 34,
+              "fill": "#F2F5F8",
+              "stroke": null,
+              "sw": 1.15,
+              "r": 5
+            },
+            {
+              "kind": "group",
+              "name": "airplane icon",
+              "id": "e0047",
+              "children": [
+                {
+                  "kind": "polygon",
+                  "name": "Airplane silhouette",
+                  "id": "e0048",
+                  "pts": [
+                    [
+                      52.75,
+                      305.9166666666667
+                    ],
+                    [
+                      60.333333333333336,
+                      305.9166666666667
+                    ],
+                    [
+                      55.666666666666664,
+                      297.1666666666667
+                    ],
+                    [
+                      58.583333333333336,
+                      296.0
+                    ],
+                    [
+                      66.75,
+                      303.5833333333333
+                    ],
+                    [
+                      73.75,
+                      300.0833333333333
+                    ],
+                    [
+                      76.66666666666667,
+                      300.6666666666667
+                    ],
+                    [
+                      77.83333333333334,
+                      302.4166666666667
+                    ],
+                    [
+                      76.08333333333334,
+                      304.1666666666667
+                    ],
+                    [
+                      68.5,
+                      307.6666666666667
+                    ],
+                    [
+                      64.41666666666667,
+                      315.25
+                    ],
+                    [
+                      61.5,
+                      315.8333333333333
+                    ],
+                    [
+                      62.083333333333336,
+                      309.4166666666667
+                    ],
+                    [
+                      57.416666666666664,
+                      311.1666666666667
+                    ],
+                    [
+                      53.333333333333336,
+                      309.4166666666667
+                    ]
+                  ],
+                  "fill": "#101F36",
+                  "stroke": null,
+                  "sw": 1.15
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "name": "Section heading",
+              "id": "e0049",
+              "x": 93,
+              "y": 291,
+              "w": 503,
+              "h": 27.139999999999997,
+              "lines": [
+                "Travel path and timing"
+              ],
+              "text": "Travel path and timing",
+              "size": 23,
+              "bold": true,
+              "italic": false,
+              "color": "#101F36",
+              "align": "left",
+              "lh": 27.139999999999997
+            },
+            {
+              "kind": "group",
+              "name": "Origin",
+              "id": "e0050",
+              "children": [
+                {
+                  "kind": "text",
+                  "name": "Label",
+                  "id": "e0051",
+                  "x": 52,
+                  "y": 327.3,
+                  "w": 194,
+                  "h": 26,
+                  "lines": [
+                    "Origin"
+                  ],
+                  "text": "Origin",
+                  "size": 20.5,
+                  "bold": true,
+                  "italic": false,
+                  "color": "#263445",
+                  "align": "left",
+                  "lh": 26
+                },
+                {
+                  "kind": "text",
+                  "name": "Value",
+                  "id": "e0052",
+                  "x": 268,
+                  "y": 326,
+                  "w": 328,
+                  "h": 55.0,
+                  "lines": [
+                    "San Francisco Bay Area",
+                    "(Pacific time)"
+                  ],
+                  "text": "San Francisco Bay Area\n(Pacific time)",
+                  "size": 22,
+                  "bold": false,
+                  "italic": false,
+                  "color": "#263445",
+                  "align": "left",
+                  "lh": 27.5
+                },
+                {
+                  "kind": "line",
+                  "name": "Row divider",
+                  "id": "e0053",
+                  "x": 52,
+                  "y": 387,
+                  "x2": 596,
+                  "y2": 387,
+                  "stroke": "#CCD4DD",
+                  "sw": 1.15
+                }
+              ]
+            },
+            {
+              "kind": "group",
+              "name": "Departure",
+              "id": "e0054",
+              "children": [
+                {
+                  "kind": "text",
+                  "name": "Label",
+                  "id": "e0055",
+                  "x": 52,
+                  "y": 395.3,
+                  "w": 194,
+                  "h": 26,
+                  "lines": [
+                    "Departure"
+                  ],
+                  "text": "Departure",
+                  "size": 20.5,
+                  "bold": true,
+                  "italic": false,
+                  "color": "#263445",
+                  "align": "left",
+                  "lh": 26
+                },
+                {
+                  "kind": "text",
+                  "name": "Value",
+                  "id": "e0056",
+                  "x": 268,
+                  "y": 394,
+                  "w": 328,
+                  "h": 55.0,
+                  "lines": [
+                    "Wed Sep 2; nonstop charter;",
+                    "clock time unavailable"
+                  ],
+                  "text": "Wed Sep 2; nonstop charter; clock time unavailable",
+                  "size": 22,
+                  "bold": false,
+                  "italic": false,
+                  "color": "#263445",
+                  "align": "left",
+                  "lh": 27.5
+                },
+                {
+                  "kind": "line",
+                  "name": "Row divider",
+                  "id": "e0057",
+                  "x": 52,
+                  "y": 455,
+                  "x2": 596,
+                  "y2": 455,
+                  "stroke": "#CCD4DD",
+                  "sw": 1.15
+                }
+              ]
+            },
+            {
+              "kind": "group",
+              "name": "Melbourne arrival",
+              "id": "e0058",
+              "children": [
+                {
+                  "kind": "text",
+                  "name": "Label",
+                  "id": "e0059",
+                  "x": 52,
+                  "y": 463.3,
+                  "w": 194,
+                  "h": 26,
+                  "lines": [
+                    "Melbourne arrival"
+                  ],
+                  "text": "Melbourne arrival",
+                  "size": 20.5,
+                  "bold": true,
+                  "italic": false,
+                  "color": "#263445",
+                  "align": "left",
+                  "lh": 26
+                },
+                {
+                  "kind": "text",
+                  "name": "Value",
+                  "id": "e0060",
+                  "x": 268,
+                  "y": 462,
+                  "w": 328,
+                  "h": 55.0,
+                  "lines": [
+                    "Fri Sep 4 morning;",
+                    "clock time unavailable"
+                  ],
+                  "text": "Fri Sep 4 morning;\nclock time unavailable",
+                  "size": 22,
+                  "bold": false,
+                  "italic": false,
+                  "color": "#263445",
+                  "align": "left",
+                  "lh": 27.5
+                },
+                {
+                  "kind": "line",
+                  "name": "Row divider",
+                  "id": "e0061",
+                  "x": 52,
+                  "y": 523,
+                  "x2": 596,
+                  "y2": 523,
+                  "stroke": "#CCD4DD",
+                  "sw": 1.15
+                }
+              ]
+            },
+            {
+              "kind": "group",
+              "name": "Travel duration",
+              "id": "e0062",
+              "children": [
+                {
+                  "kind": "text",
+                  "name": "Label",
+                  "id": "e0063",
+                  "x": 52,
+                  "y": 531.3,
+                  "w": 194,
+                  "h": 26,
+                  "lines": [
+                    "Travel duration"
+                  ],
+                  "text": "Travel duration",
+                  "size": 20.5,
+                  "bold": true,
+                  "italic": false,
+                  "color": "#263445",
+                  "align": "left",
+                  "lh": 26
+                },
+                {
+                  "kind": "text",
+                  "name": "Value",
+                  "id": "e0064",
+                  "x": 268,
+                  "y": 530,
+                  "w": 328,
+                  "h": 27.5,
+                  "lines": [
+                    "15–16 h flight"
+                  ],
+                  "text": "15–16 h flight",
+                  "size": 22,
+                  "bold": false,
+                  "italic": false,
+                  "color": "#263445",
+                  "align": "left",
+                  "lh": 27.5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "group",
+          "name": "Preparation and travel approach",
+          "id": "e0065",
+          "children": [
+            {
+              "kind": "rect",
+              "name": "Section heading background",
+              "id": "e0066",
+              "x": 40,
+              "y": 582,
+              "w": 568,
+              "h": 34,
+              "fill": "#F2F5F8",
+              "stroke": null,
+              "sw": 1.15,
+              "r": 5
+            },
+            {
+              "kind": "group",
+              "name": "bed icon",
+              "id": "e0067",
+              "children": [
+                {
+                  "kind": "line",
+                  "name": "Bed head",
+                  "id": "e0068",
+                  "x": 53.916666666666664,
+                  "y": 590.25,
+                  "x2": 53.916666666666664,
+                  "y2": 608.3333333333334,
+                  "stroke": "#101F36",
+                  "sw": 1.75
+                },
+                {
+                  "kind": "line",
+                  "name": "Bed foot",
+                  "id": "e0069",
+                  "x": 76.08333333333334,
+                  "y": 598.4166666666666,
+                  "x2": 76.08333333333334,
+                  "y2": 608.3333333333334,
+                  "stroke": "#101F36",
+                  "sw": 1.75
+                },
+                {
+                  "kind": "line",
+                  "name": "Bed base",
+                  "id": "e0070",
+                  "x": 53.916666666666664,
+                  "y": 604.25,
+                  "x2": 76.08333333333334,
+                  "y2": 604.25,
+                  "stroke": "#101F36",
+                  "sw": 1.75
+                },
+                {
+                  "kind": "rect",
+                  "name": "Mattress",
+                  "id": "e0071",
+                  "x": 55.083333333333336,
+                  "y": 597.8333333333334,
+                  "w": 21.0,
+                  "h": 5.833333333333334,
+                  "fill": "#101F36",
+                  "stroke": "#101F36",
+                  "sw": 0.5833333333333334,
+                  "r": 0
+                },
+                {
+                  "kind": "rect",
+                  "name": "Pillow",
+                  "id": "e0072",
+                  "x": 56.833333333333336,
+                  "y": 593.75,
+                  "w": 4.666666666666667,
+                  "h": 4.083333333333334,
+                  "fill": null,
+                  "stroke": "#101F36",
+                  "sw": 1.1666666666666667,
+                  "r": 0
+                },
+                {
+                  "kind": "rect",
+                  "name": "Bed blanket",
+                  "id": "e0073",
+                  "x": 63.25,
+                  "y": 594.9166666666666,
+                  "w": 11.666666666666668,
+                  "h": 5.833333333333334,
+                  "fill": "#101F36",
+                  "stroke": "#101F36",
+                  "sw": 0.5833333333333334,
+                  "r": 0
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "name": "Section heading",
+              "id": "e0074",
+              "x": 93,
+              "y": 587,
+              "w": 503,
+              "h": 27.139999999999997,
+              "lines": [
+                "Preparation/travel approach"
+              ],
+              "text": "Preparation/travel approach",
+              "size": 23,
+              "bold": true,
+              "italic": false,
+              "color": "#101F36",
+              "align": "left",
+              "lh": 27.139999999999997
+            },
+            {
+              "kind": "text",
+              "name": "Preparation description",
+              "id": "e0075",
+              "x": 52,
+              "y": 632,
+              "w": 544,
+              "h": 56,
+              "lines": [
+                "Game week in Melbourne; intended destination",
+                "adaptation"
+              ],
+              "text": "Game week in Melbourne; intended destination adaptation",
+              "size": 22,
+              "bold": false,
+              "italic": false,
+              "color": "#263445",
+              "align": "left",
+              "lh": 28
+            }
+          ]
+        },
+        {
+          "kind": "group",
+          "name": "First post-Melbourne game and rest",
+          "id": "e0076",
+          "children": [
+            {
+              "kind": "rect",
+              "name": "Section heading background",
+              "id": "e0077",
+              "x": 40,
+              "y": 700,
+              "w": 568,
+              "h": 34,
+              "fill": "#F2F5F8",
+              "stroke": null,
+              "sw": 1.15,
+              "r": 5
+            },
+            {
+              "kind": "group",
+              "name": "calendar icon",
+              "id": "e0078",
+              "children": [
+                {
+                  "kind": "rect",
+                  "name": "Calendar outline",
+                  "id": "e0079",
+                  "x": 53.916666666666664,
+                  "y": 708.8333333333334,
+                  "w": 22.166666666666668,
+                  "h": 19.833333333333336,
+                  "fill": null,
+                  "stroke": "#101F36",
+                  "sw": 1.75,
+                  "r": 0
+                },
+                {
+                  "kind": "line",
+                  "name": "Calendar rule",
+                  "id": "e0080",
+                  "x": 54.5,
+                  "y": 714.6666666666666,
+                  "x2": 75.5,
+                  "y2": 714.6666666666666,
+                  "stroke": "#101F36",
+                  "sw": 1.1666666666666667
+                },
+                {
+                  "kind": "line",
+                  "name": "Left calendar ring",
+                  "id": "e0081",
+                  "x": 59.75,
+                  "y": 705.3333333333334,
+                  "x2": 59.75,
+                  "y2": 711.1666666666666,
+                  "stroke": "#101F36",
+                  "sw": 2.3333333333333335
+                },
+                {
+                  "kind": "line",
+                  "name": "Right calendar ring",
+                  "id": "e0082",
+                  "x": 70.25,
+                  "y": 705.3333333333334,
+                  "x2": 70.25,
+                  "y2": 711.1666666666666,
+                  "stroke": "#101F36",
+                  "sw": 2.3333333333333335
+                },
+                {
+                  "kind": "rect",
+                  "name": "Calendar day 1",
+                  "id": "e0083",
+                  "x": 58.0,
+                  "y": 717.5833333333334,
+                  "w": 2.3333333333333335,
+                  "h": 2.3333333333333335,
+                  "fill": "#101F36",
+                  "stroke": null,
+                  "sw": 1.15,
+                  "r": 0
+                },
+                {
+                  "kind": "rect",
+                  "name": "Calendar day 2",
+                  "id": "e0084",
+                  "x": 64.41666666666667,
+                  "y": 717.5833333333334,
+                  "w": 2.3333333333333335,
+                  "h": 2.3333333333333335,
+                  "fill": "#101F36",
+                  "stroke": null,
+                  "sw": 1.15,
+                  "r": 0
+                },
+                {
+                  "kind": "rect",
+                  "name": "Calendar day 3",
+                  "id": "e0085",
+                  "x": 70.83333333333334,
+                  "y": 717.5833333333334,
+                  "w": 2.3333333333333335,
+                  "h": 2.3333333333333335,
+                  "fill": "#101F36",
+                  "stroke": null,
+                  "sw": 1.15,
+                  "r": 0
+                },
+                {
+                  "kind": "rect",
+                  "name": "Calendar day 4",
+                  "id": "e0086",
+                  "x": 58.0,
+                  "y": 722.8333333333334,
+                  "w": 2.3333333333333335,
+                  "h": 2.3333333333333335,
+                  "fill": "#101F36",
+                  "stroke": null,
+                  "sw": 1.15,
+                  "r": 0
+                },
+                {
+                  "kind": "rect",
+                  "name": "Calendar day 5",
+                  "id": "e0087",
+                  "x": 64.41666666666667,
+                  "y": 722.8333333333334,
+                  "w": 2.3333333333333335,
+                  "h": 2.3333333333333335,
+                  "fill": "#101F36",
+                  "stroke": null,
+                  "sw": 1.15,
+                  "r": 0
+                },
+                {
+                  "kind": "rect",
+                  "name": "Calendar day 6",
+                  "id": "e0088",
+                  "x": 70.83333333333334,
+                  "y": 722.8333333333334,
+                  "w": 2.3333333333333335,
+                  "h": 2.3333333333333335,
+                  "fill": "#101F36",
+                  "stroke": null,
+                  "sw": 1.15,
+                  "r": 0
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "name": "Section heading",
+              "id": "e0089",
+              "x": 93,
+              "y": 705,
+              "w": 503,
+              "h": 27.139999999999997,
+              "lines": [
+                "Next game turnaround"
+              ],
+              "text": "Next game turnaround",
+              "size": 23,
+              "bold": true,
+              "italic": false,
+              "color": "#101F36",
+              "align": "left",
+              "lh": 27.139999999999997
+            },
+            {
+              "kind": "text",
+              "name": "Post-Melbourne game",
+              "id": "e0090",
+              "x": 52,
+              "y": 750,
+              "w": 544,
+              "h": 27.5,
+              "lines": [
+                "vs Miami, Sun Sep 20; 10 days"
+              ],
+              "text": "vs Miami, Sun Sep 20; 10 days",
+              "size": 22,
+              "bold": false,
+              "italic": false,
+              "color": "#263445",
+              "align": "left",
+              "lh": 27.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "group",
+      "name": "04 Center comparison panel",
+      "id": "e0091",
+      "children": [
+        {
+          "kind": "rect",
+          "name": "Neutral panel background",
+          "id": "e0092",
+          "x": 640,
+          "y": 194,
+          "w": 320,
+          "h": 620,
+          "fill": "#F2F5F8",
+          "stroke": null,
+          "sw": 1.15,
+          "r": 12
+        },
+        {
+          "kind": "text",
+          "name": "Comparison title",
+          "id": "e0093",
+          "x": 650,
+          "y": 222,
+          "w": 300,
+          "h": 34,
+          "lines": [
+            "Key travel contrast"
+          ],
+          "text": "Key travel contrast",
+          "size": 31,
+          "bold": true,
+          "italic": false,
+          "color": "#101F36",
+          "align": "center",
+          "lh": 34
+        },
+        {
+          "kind": "group",
+          "name": "Melbourne arrival timing",
+          "id": "e0094",
+          "children": [
+            {
+              "kind": "group",
+              "name": "Comparison heading and icon",
+              "id": "e0095",
+              "children": [
+                {
+                  "kind": "group",
+                  "name": "airplane icon",
+                  "id": "e0096",
+                  "children": [
+                    {
+                      "kind": "polygon",
+                      "name": "Airplane silhouette",
+                      "id": "e0097",
+                      "pts": [
+                        [
+                          668.3671875,
+                          297.5
+                        ],
+                        [
+                          674.8671875,
+                          297.5
+                        ],
+                        [
+                          670.8671875,
+                          290.0
+                        ],
+                        [
+                          673.3671875,
+                          289.0
+                        ],
+                        [
+                          680.3671875,
+                          295.5
+                        ],
+                        [
+                          686.3671875,
+                          292.5
+                        ],
+                        [
+                          688.8671875,
+                          293.0
+                        ],
+                        [
+                          689.8671875,
+                          294.5
+                        ],
+                        [
+                          688.3671875,
+                          296.0
+                        ],
+                        [
+                          681.8671875,
+                          299.0
+                        ],
+                        [
+                          678.3671875,
+                          305.5
+                        ],
+                        [
+                          675.8671875,
+                          306.0
+                        ],
+                        [
+                          676.3671875,
+                          300.5
+                        ],
+                        [
+                          672.3671875,
+                          302.0
+                        ],
+                        [
+                          668.8671875,
+                          300.5
+                        ]
+                      ],
+                      "fill": "#101F36",
+                      "stroke": null,
+                      "sw": 1.15
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "name": "Comparison heading",
+                  "id": "e0098",
+                  "x": 700.8671875,
+                  "y": 285,
+                  "w": 232.265625,
+                  "h": 24,
+                  "lines": [
+                    "Melbourne arrival timing"
+                  ],
+                  "text": "Melbourne arrival timing",
+                  "size": 20,
+                  "bold": true,
+                  "italic": false,
+                  "color": "#101F36",
+                  "align": "center",
+                  "lh": 24
+                }
+              ]
+            },
+            {
+              "kind": "group",
+              "name": "49ers value",
+              "id": "e0099",
+              "children": [
+                {
+                  "kind": "rect",
+                  "name": "Tinted comparison box",
+                  "id": "e0100",
+                  "x": 654,
+                  "y": 332,
+                  "w": 140,
+                  "h": 104,
+                  "fill": "#F9E1E1",
+                  "stroke": "#E1B0B0",
+                  "sw": 1.15,
+                  "r": 8
+                },
+                {
+                  "kind": "text",
+                  "name": "Arrival date",
+                  "id": "e0101",
+                  "x": 660,
+                  "y": 342,
+                  "w": 128,
+                  "h": 25.874999999999996,
+                  "lines": [
+                    "Fri Sep 4"
+                  ],
+                  "text": "Fri Sep 4",
+                  "size": 22.5,
+                  "bold": true,
+                  "italic": false,
+                  "color": "#AA0000",
+                  "align": "center",
+                  "lh": 25.874999999999996
+                },
+                {
+                  "kind": "text",
+                  "name": "Arrival time of day",
+                  "id": "e0102",
+                  "x": 660,
+                  "y": 369,
+                  "w": 128,
+                  "h": 25.874999999999996,
+                  "lines": [
+                    "morning"
+                  ],
+                  "text": "morning",
+                  "size": 22.5,
+                  "bold": true,
+                  "italic": false,
+                  "color": "#AA0000",
+                  "align": "center",
+                  "lh": 25.874999999999996
+                },
+                {
+                  "kind": "text",
+                  "name": "Team label",
+                  "id": "e0103",
+                  "x": 660,
+                  "y": 407,
+                  "w": 128,
+                  "h": 21.275,
+                  "lines": [
+                    "49ers"
+                  ],
+                  "text": "49ers",
+                  "size": 18.5,
+                  "bold": false,
+                  "italic": false,
+                  "color": "#AA0000",
+                  "align": "center",
+                  "lh": 21.275
+                }
+              ]
+            },
+            {
+              "kind": "group",
+              "name": "Rams value",
+              "id": "e0104",
+              "children": [
+                {
+                  "kind": "rect",
+                  "name": "Tinted comparison box",
+                  "id": "e0105",
+                  "x": 806,
+                  "y": 332,
+                  "w": 140,
+                  "h": 104,
+                  "fill": "#DFEAF9",
+                  "stroke": "#AFC5E4",
+                  "sw": 1.15,
+                  "r": 8
+                },
+                {
+                  "kind": "text",
+                  "name": "Arrival date",
+                  "id": "e0106",
+                  "x": 812,
+                  "y": 342,
+                  "w": 128,
+                  "h": 25.874999999999996,
+                  "lines": [
+                    "Thu Sep 10"
+                  ],
+                  "text": "Thu Sep 10",
+                  "size": 22.5,
+                  "bold": true,
+                  "italic": false,
+                  "color": "#003594",
+                  "align": "center",
+                  "lh": 25.874999999999996
+                },
+                {
+                  "kind": "text",
+                  "name": "Arrival time of day",
+                  "id": "e0107",
+                  "x": 812,
+                  "y": 369,
+                  "w": 128,
+                  "h": 25.874999999999996,
+                  "lines": [
+                    "morning"
+                  ],
+                  "text": "morning",
+                  "size": 22.5,
+                  "bold": true,
+                  "italic": false,
+                  "color": "#003594",
+                  "align": "center",
+                  "lh": 25.874999999999996
+                },
+                {
+                  "kind": "text",
+                  "name": "Team label",
+                  "id": "e0108",
+                  "x": 812,
+                  "y": 407,
+                  "w": 128,
+                  "h": 21.275,
+                  "lines": [
+                    "Rams"
+                  ],
+                  "text": "Rams",
+                  "size": 18.5,
+                  "bold": false,
+                  "italic": false,
+                  "color": "#003594",
+                  "align": "center",
+                  "lh": 21.275
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "line",
+          "name": "Arrival divider",
+          "id": "e0109",
+          "x": 658,
+          "y": 458.5,
+          "x2": 942,
+          "y2": 458.5,
+          "stroke": "#CCD4DD",
+          "sw": 1.15
+        },
+        {
+          "kind": "group",
+          "name": "Arrival to kickoff window",
+          "id": "e0110",
+          "children": [
+            {
+              "kind": "group",
+              "name": "Comparison heading and icon",
+              "id": "e0111",
+              "children": [
+                {
+                  "kind": "group",
+                  "name": "clock icon",
+                  "id": "e0112",
+                  "children": [
+                    {
+                      "kind": "ellipse",
+                      "name": "Clock face",
+                      "id": "e0113",
+                      "x": 667.150390625,
+                      "y": 481.5,
+                      "w": 19.0,
+                      "h": 19.0,
+                      "fill": null,
+                      "stroke": "#101F36",
+                      "sw": 1.5
+                    },
+                    {
+                      "kind": "line",
+                      "name": "Hour hand",
+                      "id": "e0114",
+                      "x": 676.650390625,
+                      "y": 491.0,
+                      "x2": 676.650390625,
+                      "y2": 485.0,
+                      "stroke": "#101F36",
+                      "sw": 1.5
+                    },
+                    {
+                      "kind": "line",
+                      "name": "Minute hand",
+                      "id": "e0115",
+                      "x": 676.650390625,
+                      "y": 491.0,
+                      "x2": 681.650390625,
+                      "y2": 494.0,
+                      "stroke": "#101F36",
+                      "sw": 1.5
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "name": "Comparison heading",
+                  "id": "e0116",
+                  "x": 698.650390625,
+                  "y": 481,
+                  "w": 236.69921875,
+                  "h": 24,
+                  "lines": [
+                    "Arrival to kickoff window"
+                  ],
+                  "text": "Arrival to kickoff window",
+                  "size": 20,
+                  "bold": true,
+                  "italic": false,
+                  "color": "#101F36",
+                  "align": "center",
+                  "lh": 24
+                }
+              ]
+            },
+            {
+              "kind": "group",
+              "name": "49ers value",
+              "id": "e0117",
+              "children": [
+                {
+                  "kind": "rect",
+                  "name": "Tinted comparison box",
+                  "id": "e0118",
+                  "x": 654,
+                  "y": 528,
+                  "w": 140,
+                  "h": 88,
+                  "fill": "#F9E1E1",
+                  "stroke": "#E1B0B0",
+                  "sw": 1.15,
+                  "r": 8
+                },
+                {
+                  "kind": "text",
+                  "name": "Arrival window",
+                  "id": "e0119",
+                  "x": 660,
+                  "y": 539,
+                  "w": 128,
+                  "h": 39.099999999999994,
+                  "lines": [
+                    "~7 days"
+                  ],
+                  "text": "~7 days",
+                  "size": 34,
+                  "bold": true,
+                  "italic": false,
+                  "color": "#AA0000",
+                  "align": "center",
+                  "lh": 39.099999999999994
+                },
+                {
+                  "kind": "text",
+                  "name": "Team label",
+                  "id": "e0120",
+                  "x": 660,
+                  "y": 584,
+                  "w": 128,
+                  "h": 21.275,
+                  "lines": [
+                    "49ers"
+                  ],
+                  "text": "49ers",
+                  "size": 18.5,
+                  "bold": false,
+                  "italic": false,
+                  "color": "#AA0000",
+                  "align": "center",
+                  "lh": 21.275
+                }
+              ]
+            },
+            {
+              "kind": "group",
+              "name": "Rams value",
+              "id": "e0121",
+              "children": [
+                {
+                  "kind": "rect",
+                  "name": "Tinted comparison box",
+                  "id": "e0122",
+                  "x": 806,
+                  "y": 528,
+                  "w": 140,
+                  "h": 88,
+                  "fill": "#DFEAF9",
+                  "stroke": "#AFC5E4",
+                  "sw": 1.15,
+                  "r": 8
+                },
+                {
+                  "kind": "text",
+                  "name": "Arrival window",
+                  "id": "e0123",
+                  "x": 812,
+                  "y": 539,
+                  "w": 128,
+                  "h": 39.099999999999994,
+                  "lines": [
+                    "~28 h"
+                  ],
+                  "text": "~28 h",
+                  "size": 34,
+                  "bold": true,
+                  "italic": false,
+                  "color": "#003594",
+                  "align": "center",
+                  "lh": 39.099999999999994
+                },
+                {
+                  "kind": "text",
+                  "name": "Team label",
+                  "id": "e0124",
+                  "x": 812,
+                  "y": 584,
+                  "w": 128,
+                  "h": 21.275,
+                  "lines": [
+                    "Rams"
+                  ],
+                  "text": "Rams",
+                  "size": 18.5,
+                  "bold": false,
+                  "italic": false,
+                  "color": "#003594",
+                  "align": "center",
+                  "lh": 21.275
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "line",
+          "name": "Window divider",
+          "id": "e0125",
+          "x": 658,
+          "y": 646.0,
+          "x2": 942,
+          "y2": 646.0,
+          "stroke": "#CCD4DD",
+          "sw": 1.15
+        },
+        {
+          "kind": "group",
+          "name": "Destination nights",
+          "id": "e0126",
+          "children": [
+            {
+              "kind": "group",
+              "name": "Comparison heading and icon",
+              "id": "e0127",
+              "children": [
+                {
+                  "kind": "group",
+                  "name": "bed icon",
+                  "id": "e0128",
+                  "children": [
+                    {
+                      "kind": "line",
+                      "name": "Bed head",
+                      "id": "e0129",
+                      "x": 686.0419921875,
+                      "y": 678.5,
+                      "x2": 686.0419921875,
+                      "y2": 694.0,
+                      "stroke": "#101F36",
+                      "sw": 1.5
+                    },
+                    {
+                      "kind": "line",
+                      "name": "Bed foot",
+                      "id": "e0130",
+                      "x": 705.0419921875,
+                      "y": 685.5,
+                      "x2": 705.0419921875,
+                      "y2": 694.0,
+                      "stroke": "#101F36",
+                      "sw": 1.5
+                    },
+                    {
+                      "kind": "line",
+                      "name": "Bed base",
+                      "id": "e0131",
+                      "x": 686.0419921875,
+                      "y": 690.5,
+                      "x2": 705.0419921875,
+                      "y2": 690.5,
+                      "stroke": "#101F36",
+                      "sw": 1.5
+                    },
+                    {
+                      "kind": "rect",
+                      "name": "Mattress",
+                      "id": "e0132",
+                      "x": 687.0419921875,
+                      "y": 685.0,
+                      "w": 18.0,
+                      "h": 5.0,
+                      "fill": "#101F36",
+                      "stroke": "#101F36",
+                      "sw": 0.5,
+                      "r": 0
+                    },
+                    {
+                      "kind": "rect",
+                      "name": "Pillow",
+                      "id": "e0133",
+                      "x": 688.5419921875,
+                      "y": 681.5,
+                      "w": 4.0,
+                      "h": 3.5,
+                      "fill": null,
+                      "stroke": "#101F36",
+                      "sw": 1.0,
+                      "r": 0
+                    },
+                    {
+                      "kind": "rect",
+                      "name": "Bed blanket",
+                      "id": "e0134",
+                      "x": 694.0419921875,
+                      "y": 682.5,
+                      "w": 10.0,
+                      "h": 5.0,
+                      "fill": "#101F36",
+                      "stroke": "#101F36",
+                      "sw": 0.5,
+                      "r": 0
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "name": "Comparison heading",
+                  "id": "e0135",
+                  "x": 717.5419921875,
+                  "y": 676,
+                  "w": 198.916015625,
+                  "h": 24,
+                  "lines": [
+                    "Nights before kickoff"
+                  ],
+                  "text": "Nights before kickoff",
+                  "size": 20,
+                  "bold": true,
+                  "italic": false,
+                  "color": "#101F36",
+                  "align": "center",
+                  "lh": 24
+                }
+              ]
+            },
+            {
+              "kind": "group",
+              "name": "49ers value",
+              "id": "e0136",
+              "children": [
+                {
+                  "kind": "rect",
+                  "name": "Tinted comparison box",
+                  "id": "e0137",
+                  "x": 654,
+                  "y": 723,
+                  "w": 140,
+                  "h": 74,
+                  "fill": "#F9E1E1",
+                  "stroke": "#E1B0B0",
+                  "sw": 1.15,
+                  "r": 8
+                },
+                {
+                  "kind": "text",
+                  "name": "Night count",
+                  "id": "e0138",
+                  "x": 660,
+                  "y": 728,
+                  "w": 128,
+                  "h": 43.699999999999996,
+                  "lines": [
+                    "7"
+                  ],
+                  "text": "7",
+                  "size": 38,
+                  "bold": true,
+                  "italic": false,
+                  "color": "#AA0000",
+                  "align": "center",
+                  "lh": 43.699999999999996
+                },
+                {
+                  "kind": "text",
+                  "name": "Team label",
+                  "id": "e0139",
+                  "x": 660,
+                  "y": 769,
+                  "w": 128,
+                  "h": 20.7,
+                  "lines": [
+                    "49ers"
+                  ],
+                  "text": "49ers",
+                  "size": 18,
+                  "bold": false,
+                  "italic": false,
+                  "color": "#AA0000",
+                  "align": "center",
+                  "lh": 20.7
+                }
+              ]
+            },
+            {
+              "kind": "group",
+              "name": "Rams value",
+              "id": "e0140",
+              "children": [
+                {
+                  "kind": "rect",
+                  "name": "Tinted comparison box",
+                  "id": "e0141",
+                  "x": 806,
+                  "y": 723,
+                  "w": 140,
+                  "h": 74,
+                  "fill": "#DFEAF9",
+                  "stroke": "#AFC5E4",
+                  "sw": 1.15,
+                  "r": 8
+                },
+                {
+                  "kind": "text",
+                  "name": "Night count",
+                  "id": "e0142",
+                  "x": 812,
+                  "y": 728,
+                  "w": 128,
+                  "h": 43.699999999999996,
+                  "lines": [
+                    "1"
+                  ],
+                  "text": "1",
+                  "size": 38,
+                  "bold": true,
+                  "italic": false,
+                  "color": "#003594",
+                  "align": "center",
+                  "lh": 43.699999999999996
+                },
+                {
+                  "kind": "text",
+                  "name": "Team label",
+                  "id": "e0143",
+                  "x": 812,
+                  "y": 769,
+                  "w": 128,
+                  "h": 20.7,
+                  "lines": [
+                    "Rams"
+                  ],
+                  "text": "Rams",
+                  "size": 18,
+                  "bold": false,
+                  "italic": false,
+                  "color": "#003594",
+                  "align": "center",
+                  "lh": 20.7
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "group",
+      "name": "05 RAMS panel",
+      "id": "e0144",
+      "children": [
+        {
+          "kind": "rect",
+          "name": "Panel background and border",
+          "id": "e0145",
+          "x": 976,
+          "y": 194,
+          "w": 600,
+          "h": 620,
+          "fill": "#FFFFFF",
+          "stroke": "#003594",
+          "sw": 1.35,
+          "r": 10
+        },
+        {
+          "kind": "group",
+          "name": "Team header",
+          "id": "e0146",
+          "children": [
+            {
+              "kind": "rect",
+              "name": "Team header background",
+              "id": "e0147",
+              "x": 976,
+              "y": 194,
+              "w": 600,
+              "h": 76,
+              "fill": "#003594",
+              "stroke": null,
+              "sw": 1.15,
+              "r": 10
+            },
+            {
+              "kind": "rect",
+              "name": "Header lower square edge",
+              "id": "e0148",
+              "x": 976,
+              "y": 216,
+              "w": 600,
+              "h": 54,
+              "fill": "#003594",
+              "stroke": null,
+              "sw": 1.15,
+              "r": 0
+            },
+            {
+              "kind": "group",
+              "name": "Replaceable team logo placeholder",
+              "id": "e0149",
+              "children": [
+                {
+                  "kind": "rect",
+                  "name": "Placeholder border",
+                  "id": "e0150",
+                  "x": 1004,
+                  "y": 207,
+                  "w": 88,
+                  "h": 50,
+                  "fill": null,
+                  "stroke": "#FFFFFF",
+                  "sw": 1.8,
+                  "r": 7
+                },
+                {
+                  "kind": "text",
+                  "name": "Placeholder initials",
+                  "id": "e0151",
+                  "x": 1004,
+                  "y": 217,
+                  "w": 88,
+                  "h": 34.22,
+                  "lines": [
+                    "LA"
+                  ],
+                  "text": "LA",
+                  "size": 29,
+                  "bold": true,
+                  "italic": false,
+                  "color": "#FFFFFF",
+                  "align": "center",
+                  "lh": 34.22
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "name": "Team name",
+              "id": "e0152",
+              "x": 1120,
+              "y": 207,
+              "w": 416,
+              "h": 54.279999999999994,
+              "lines": [
+                "RAMS"
+              ],
+              "text": "RAMS",
+              "size": 46,
+              "bold": true,
+              "italic": false,
+              "color": "#FFFFFF",
+              "align": "left",
+              "lh": 54.279999999999994
+            }
+          ]
+        },
+        {
+          "kind": "group",
+          "name": "Travel path and timing",
+          "id": "e0153",
+          "children": [
+            {
+              "kind": "rect",
+              "name": "Section heading background",
+              "id": "e0154",
+              "x": 992,
+              "y": 286,
+              "w": 568,
+              "h": 34,
+              "fill": "#F2F5F8",
+              "stroke": null,
+              "sw": 1.15,
+              "r": 5
+            },
+            {
+              "kind": "group",
+              "name": "airplane icon",
+              "id": "e0155",
+              "children": [
+                {
+                  "kind": "polygon",
+                  "name": "Airplane silhouette",
+                  "id": "e0156",
+                  "pts": [
+                    [
+                      1004.75,
+                      305.9166666666667
+                    ],
+                    [
+                      1012.3333333333334,
+                      305.9166666666667
+                    ],
+                    [
+                      1007.6666666666666,
+                      297.1666666666667
+                    ],
+                    [
+                      1010.5833333333334,
+                      296.0
+                    ],
+                    [
+                      1018.75,
+                      303.5833333333333
+                    ],
+                    [
+                      1025.75,
+                      300.0833333333333
+                    ],
+                    [
+                      1028.6666666666667,
+                      300.6666666666667
+                    ],
+                    [
+                      1029.8333333333333,
+                      302.4166666666667
+                    ],
+                    [
+                      1028.0833333333333,
+                      304.1666666666667
+                    ],
+                    [
+                      1020.5,
+                      307.6666666666667
+                    ],
+                    [
+                      1016.4166666666666,
+                      315.25
+                    ],
+                    [
+                      1013.5,
+                      315.8333333333333
+                    ],
+                    [
+                      1014.0833333333334,
+                      309.4166666666667
+                    ],
+                    [
+                      1009.4166666666666,
+                      311.1666666666667
+                    ],
+                    [
+                      1005.3333333333334,
+                      309.4166666666667
+                    ]
+                  ],
+                  "fill": "#101F36",
+                  "stroke": null,
+                  "sw": 1.15
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "name": "Section heading",
+              "id": "e0157",
+              "x": 1045,
+              "y": 291,
+              "w": 503,
+              "h": 27.139999999999997,
+              "lines": [
+                "Travel path and timing"
+              ],
+              "text": "Travel path and timing",
+              "size": 23,
+              "bold": true,
+              "italic": false,
+              "color": "#101F36",
+              "align": "left",
+              "lh": 27.139999999999997
+            },
+            {
+              "kind": "group",
+              "name": "Origin",
+              "id": "e0158",
+              "children": [
+                {
+                  "kind": "text",
+                  "name": "Label",
+                  "id": "e0159",
+                  "x": 1004,
+                  "y": 327.3,
+                  "w": 194,
+                  "h": 26,
+                  "lines": [
+                    "Origin"
+                  ],
+                  "text": "Origin",
+                  "size": 20.5,
+                  "bold": true,
+                  "italic": false,
+                  "color": "#263445",
+                  "align": "left",
+                  "lh": 26
+                },
+                {
+                  "kind": "text",
+                  "name": "Value",
+                  "id": "e0160",
+                  "x": 1220,
+                  "y": 326,
+                  "w": 328,
+                  "h": 55.0,
+                  "lines": [
+                    "Los Angeles area",
+                    "(Pacific time)"
+                  ],
+                  "text": "Los Angeles area\n(Pacific time)",
+                  "size": 22,
+                  "bold": false,
+                  "italic": false,
+                  "color": "#263445",
+                  "align": "left",
+                  "lh": 27.5
+                },
+                {
+                  "kind": "line",
+                  "name": "Row divider",
+                  "id": "e0161",
+                  "x": 1004,
+                  "y": 387,
+                  "x2": 1548,
+                  "y2": 387,
+                  "stroke": "#CCD4DD",
+                  "sw": 1.15
+                }
+              ]
+            },
+            {
+              "kind": "group",
+              "name": "Departure",
+              "id": "e0162",
+              "children": [
+                {
+                  "kind": "text",
+                  "name": "Label",
+                  "id": "e0163",
+                  "x": 1004,
+                  "y": 395.3,
+                  "w": 194,
+                  "h": 26,
+                  "lines": [
+                    "Departure"
+                  ],
+                  "text": "Departure",
+                  "size": 20.5,
+                  "bold": true,
+                  "italic": false,
+                  "color": "#263445",
+                  "align": "left",
+                  "lh": 26
+                },
+                {
+                  "kind": "text",
+                  "name": "Value",
+                  "id": "e0164",
+                  "x": 1220,
+                  "y": 394,
+                  "w": 328,
+                  "h": 55.0,
+                  "lines": [
+                    "Tue Sep 8 night; nonstop charter",
+                    "after practice in Los Angeles"
+                  ],
+                  "text": "Tue Sep 8 night; nonstop charter after practice in Los Angeles",
+                  "size": 22,
+                  "bold": false,
+                  "italic": false,
+                  "color": "#263445",
+                  "align": "left",
+                  "lh": 27.5
+                },
+                {
+                  "kind": "line",
+                  "name": "Row divider",
+                  "id": "e0165",
+                  "x": 1004,
+                  "y": 455,
+                  "x2": 1548,
+                  "y2": 455,
+                  "stroke": "#CCD4DD",
+                  "sw": 1.15
+                }
+              ]
+            },
+            {
+              "kind": "group",
+              "name": "Melbourne arrival",
+              "id": "e0166",
+              "children": [
+                {
+                  "kind": "text",
+                  "name": "Label",
+                  "id": "e0167",
+                  "x": 1004,
+                  "y": 463.3,
+                  "w": 194,
+                  "h": 26,
+                  "lines": [
+                    "Melbourne arrival"
+                  ],
+                  "text": "Melbourne arrival",
+                  "size": 20.5,
+                  "bold": true,
+                  "italic": false,
+                  "color": "#263445",
+                  "align": "left",
+                  "lh": 26
+                },
+                {
+                  "kind": "text",
+                  "name": "Value",
+                  "id": "e0168",
+                  "x": 1220,
+                  "y": 462,
+                  "w": 328,
+                  "h": 55.0,
+                  "lines": [
+                    "Thu Sep 10 morning;",
+                    "clock time unavailable"
+                  ],
+                  "text": "Thu Sep 10 morning;\nclock time unavailable",
+                  "size": 22,
+                  "bold": false,
+                  "italic": false,
+                  "color": "#263445",
+                  "align": "left",
+                  "lh": 27.5
+                },
+                {
+                  "kind": "line",
+                  "name": "Row divider",
+                  "id": "e0169",
+                  "x": 1004,
+                  "y": 523,
+                  "x2": 1548,
+                  "y2": 523,
+                  "stroke": "#CCD4DD",
+                  "sw": 1.15
+                }
+              ]
+            },
+            {
+              "kind": "group",
+              "name": "Travel duration",
+              "id": "e0170",
+              "children": [
+                {
+                  "kind": "text",
+                  "name": "Label",
+                  "id": "e0171",
+                  "x": 1004,
+                  "y": 531.3,
+                  "w": 194,
+                  "h": 26,
+                  "lines": [
+                    "Travel duration"
+                  ],
+                  "text": "Travel duration",
+                  "size": 20.5,
+                  "bold": true,
+                  "italic": false,
+                  "color": "#263445",
+                  "align": "left",
+                  "lh": 26
+                },
+                {
+                  "kind": "text",
+                  "name": "Value",
+                  "id": "e0172",
+                  "x": 1220,
+                  "y": 530,
+                  "w": 328,
+                  "h": 27.5,
+                  "lines": [
+                    "15–16 h flight"
+                  ],
+                  "text": "15–16 h flight",
+                  "size": 22,
+                  "bold": false,
+                  "italic": false,
+                  "color": "#263445",
+                  "align": "left",
+                  "lh": 27.5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "group",
+          "name": "Preparation and travel approach",
+          "id": "e0173",
+          "children": [
+            {
+              "kind": "rect",
+              "name": "Section heading background",
+              "id": "e0174",
+              "x": 992,
+              "y": 582,
+              "w": 568,
+              "h": 34,
+              "fill": "#F2F5F8",
+              "stroke": null,
+              "sw": 1.15,
+              "r": 5
+            },
+            {
+              "kind": "group",
+              "name": "bed icon",
+              "id": "e0175",
+              "children": [
+                {
+                  "kind": "line",
+                  "name": "Bed head",
+                  "id": "e0176",
+                  "x": 1005.9166666666666,
+                  "y": 590.25,
+                  "x2": 1005.9166666666666,
+                  "y2": 608.3333333333334,
+                  "stroke": "#101F36",
+                  "sw": 1.75
+                },
+                {
+                  "kind": "line",
+                  "name": "Bed foot",
+                  "id": "e0177",
+                  "x": 1028.0833333333333,
+                  "y": 598.4166666666666,
+                  "x2": 1028.0833333333333,
+                  "y2": 608.3333333333334,
+                  "stroke": "#101F36",
+                  "sw": 1.75
+                },
+                {
+                  "kind": "line",
+                  "name": "Bed base",
+                  "id": "e0178",
+                  "x": 1005.9166666666666,
+                  "y": 604.25,
+                  "x2": 1028.0833333333333,
+                  "y2": 604.25,
+                  "stroke": "#101F36",
+                  "sw": 1.75
+                },
+                {
+                  "kind": "rect",
+                  "name": "Mattress",
+                  "id": "e0179",
+                  "x": 1007.0833333333334,
+                  "y": 597.8333333333334,
+                  "w": 21.0,
+                  "h": 5.833333333333334,
+                  "fill": "#101F36",
+                  "stroke": "#101F36",
+                  "sw": 0.5833333333333334,
+                  "r": 0
+                },
+                {
+                  "kind": "rect",
+                  "name": "Pillow",
+                  "id": "e0180",
+                  "x": 1008.8333333333334,
+                  "y": 593.75,
+                  "w": 4.666666666666667,
+                  "h": 4.083333333333334,
+                  "fill": null,
+                  "stroke": "#101F36",
+                  "sw": 1.1666666666666667,
+                  "r": 0
+                },
+                {
+                  "kind": "rect",
+                  "name": "Bed blanket",
+                  "id": "e0181",
+                  "x": 1015.25,
+                  "y": 594.9166666666666,
+                  "w": 11.666666666666668,
+                  "h": 5.833333333333334,
+                  "fill": "#101F36",
+                  "stroke": "#101F36",
+                  "sw": 0.5833333333333334,
+                  "r": 0
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "name": "Section heading",
+              "id": "e0182",
+              "x": 1045,
+              "y": 587,
+              "w": 503,
+              "h": 27.139999999999997,
+              "lines": [
+                "Preparation/travel approach"
+              ],
+              "text": "Preparation/travel approach",
+              "size": 23,
+              "bold": true,
+              "italic": false,
+              "color": "#101F36",
+              "align": "left",
+              "lh": 27.139999999999997
+            },
+            {
+              "kind": "text",
+              "name": "Preparation description",
+              "id": "e0183",
+              "x": 1004,
+              "y": 632,
+              "w": 544,
+              "h": 56,
+              "lines": [
+                "Practiced in Los Angeles through Tuesday; intended",
+                "maintenance of usual routine"
+              ],
+              "text": "Practiced in Los Angeles through Tuesday; intended maintenance of usual routine",
+              "size": 22,
+              "bold": false,
+              "italic": false,
+              "color": "#263445",
+              "align": "left",
+              "lh": 28
+            }
+          ]
+        },
+        {
+          "kind": "group",
+          "name": "First post-Melbourne game and rest",
+          "id": "e0184",
+          "children": [
+            {
+              "kind": "rect",
+              "name": "Section heading background",
+              "id": "e0185",
+              "x": 992,
+              "y": 700,
+              "w": 568,
+              "h": 34,
+              "fill": "#F2F5F8",
+              "stroke": null,
+              "sw": 1.15,
+              "r": 5
+            },
+            {
+              "kind": "group",
+              "name": "calendar icon",
+              "id": "e0186",
+              "children": [
+                {
+                  "kind": "rect",
+                  "name": "Calendar outline",
+                  "id": "e0187",
+                  "x": 1005.9166666666666,
+                  "y": 708.8333333333334,
+                  "w": 22.166666666666668,
+                  "h": 19.833333333333336,
+                  "fill": null,
+                  "stroke": "#101F36",
+                  "sw": 1.75,
+                  "r": 0
+                },
+                {
+                  "kind": "line",
+                  "name": "Calendar rule",
+                  "id": "e0188",
+                  "x": 1006.5,
+                  "y": 714.6666666666666,
+                  "x2": 1027.5,
+                  "y2": 714.6666666666666,
+                  "stroke": "#101F36",
+                  "sw": 1.1666666666666667
+                },
+                {
+                  "kind": "line",
+                  "name": "Left calendar ring",
+                  "id": "e0189",
+                  "x": 1011.75,
+                  "y": 705.3333333333334,
+                  "x2": 1011.75,
+                  "y2": 711.1666666666666,
+                  "stroke": "#101F36",
+                  "sw": 2.3333333333333335
+                },
+                {
+                  "kind": "line",
+                  "name": "Right calendar ring",
+                  "id": "e0190",
+                  "x": 1022.25,
+                  "y": 705.3333333333334,
+                  "x2": 1022.25,
+                  "y2": 711.1666666666666,
+                  "stroke": "#101F36",
+                  "sw": 2.3333333333333335
+                },
+                {
+                  "kind": "rect",
+                  "name": "Calendar day 1",
+                  "id": "e0191",
+                  "x": 1010.0,
+                  "y": 717.5833333333334,
+                  "w": 2.3333333333333335,
+                  "h": 2.3333333333333335,
+                  "fill": "#101F36",
+                  "stroke": null,
+                  "sw": 1.15,
+                  "r": 0
+                },
+                {
+                  "kind": "rect",
+                  "name": "Calendar day 2",
+                  "id": "e0192",
+                  "x": 1016.4166666666666,
+                  "y": 717.5833333333334,
+                  "w": 2.3333333333333335,
+                  "h": 2.3333333333333335,
+                  "fill": "#101F36",
+                  "stroke": null,
+                  "sw": 1.15,
+                  "r": 0
+                },
+                {
+                  "kind": "rect",
+                  "name": "Calendar day 3",
+                  "id": "e0193",
+                  "x": 1022.8333333333334,
+                  "y": 717.5833333333334,
+                  "w": 2.3333333333333335,
+                  "h": 2.3333333333333335,
+                  "fill": "#101F36",
+                  "stroke": null,
+                  "sw": 1.15,
+                  "r": 0
+                },
+                {
+                  "kind": "rect",
+                  "name": "Calendar day 4",
+                  "id": "e0194",
+                  "x": 1010.0,
+                  "y": 722.8333333333334,
+                  "w": 2.3333333333333335,
+                  "h": 2.3333333333333335,
+                  "fill": "#101F36",
+                  "stroke": null,
+                  "sw": 1.15,
+                  "r": 0
+                },
+                {
+                  "kind": "rect",
+                  "name": "Calendar day 5",
+                  "id": "e0195",
+                  "x": 1016.4166666666666,
+                  "y": 722.8333333333334,
+                  "w": 2.3333333333333335,
+                  "h": 2.3333333333333335,
+                  "fill": "#101F36",
+                  "stroke": null,
+                  "sw": 1.15,
+                  "r": 0
+                },
+                {
+                  "kind": "rect",
+                  "name": "Calendar day 6",
+                  "id": "e0196",
+                  "x": 1022.8333333333334,
+                  "y": 722.8333333333334,
+                  "w": 2.3333333333333335,
+                  "h": 2.3333333333333335,
+                  "fill": "#101F36",
+                  "stroke": null,
+                  "sw": 1.15,
+                  "r": 0
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "name": "Section heading",
+              "id": "e0197",
+              "x": 1045,
+              "y": 705,
+              "w": 503,
+              "h": 27.139999999999997,
+              "lines": [
+                "Next game turnaround"
+              ],
+              "text": "Next game turnaround",
+              "size": 23,
+              "bold": true,
+              "italic": false,
+              "color": "#101F36",
+              "align": "left",
+              "lh": 27.139999999999997
+            },
+            {
+              "kind": "text",
+              "name": "Post-Melbourne game",
+              "id": "e0198",
+              "x": 1004,
+              "y": 750,
+              "w": 544,
+              "h": 27.5,
+              "lines": [
+                "vs New York Giants, Mon Sep 21; 11 days"
+              ],
+              "text": "vs New York Giants, Mon Sep 21; 11 days",
+              "size": 22,
+              "bold": false,
+              "italic": false,
+              "color": "#263445",
+              "align": "left",
+              "lh": 27.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "group",
+      "name": "06 Shared game outcome",
+      "id": "e0199",
+      "children": [
+        {
+          "kind": "rect",
+          "name": "Shared outcome background and border",
+          "id": "e0200",
+          "x": 24,
+          "y": 834,
+          "w": 1552,
+          "h": 242,
+          "fill": "#FFFFFF",
+          "stroke": "#CCD4DD",
+          "sw": 1.35,
+          "r": 10
+        },
+        {
+          "kind": "group",
+          "name": "Shared outcome header",
+          "id": "e0201",
+          "children": [
+            {
+              "kind": "rect",
+              "name": "Header background",
+              "id": "e0202",
+              "x": 24,
+              "y": 834,
+              "w": 1552,
+              "h": 42,
+              "fill": "#F2F5F8",
+              "stroke": null,
+              "sw": 1.15,
+              "r": 10
+            },
+            {
+              "kind": "rect",
+              "name": "Header lower square edge",
+              "id": "e0203",
+              "x": 24,
+              "y": 853,
+              "w": 1552,
+              "h": 23,
+              "fill": "#F2F5F8",
+              "stroke": null,
+              "sw": 1.15,
+              "r": 0
+            },
+            {
+              "kind": "group",
+              "name": "bars icon",
+              "id": "e0204",
+              "children": [
+                {
+                  "kind": "rect",
+                  "name": "Performance bar 1",
+                  "id": "e0205",
+                  "x": 56.083333333333336,
+                  "y": 858.5,
+                  "w": 4.083333333333334,
+                  "h": 8.166666666666668,
+                  "fill": "#101F36",
+                  "stroke": null,
+                  "sw": 1.15,
+                  "r": 0
+                },
+                {
+                  "kind": "rect",
+                  "name": "Performance bar 2",
+                  "id": "e0206",
+                  "x": 63.66666666666667,
+                  "y": 852.0833333333334,
+                  "w": 4.083333333333334,
+                  "h": 14.583333333333334,
+                  "fill": "#101F36",
+                  "stroke": null,
+                  "sw": 1.15,
+                  "r": 0
+                },
+                {
+                  "kind": "rect",
+                  "name": "Performance bar 3",
+                  "id": "e0207",
+                  "x": 71.25,
+                  "y": 845.0833333333334,
+                  "w": 4.083333333333334,
+                  "h": 21.583333333333336,
+                  "fill": "#101F36",
+                  "stroke": null,
+                  "sw": 1.15,
+                  "r": 0
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "name": "Section heading",
+              "id": "e0208",
+              "x": 94,
+              "y": 842,
+              "w": 420,
+              "h": 30.68,
+              "lines": [
+                "Game outcome"
+              ],
+              "text": "Game outcome",
+              "size": 26,
+              "bold": true,
+              "italic": false,
+              "color": "#101F36",
+              "align": "left",
+              "lh": 30.68
+            },
+            {
+              "kind": "text",
+              "name": "Outcome perspective",
+              "id": "e0209",
+              "x": 600,
+              "y": 845,
+              "w": 948,
+              "h": 24.779999999999998,
+              "lines": [
+                "Closing spread shown for the Rams; market residual for the 49ers"
+              ],
+              "text": "Closing spread shown for the Rams; market residual for the 49ers",
+              "size": 21,
+              "bold": false,
+              "italic": false,
+              "color": "#263445",
+              "align": "right",
+              "lh": 24.779999999999998
+            }
+          ]
+        },
+        {
+          "kind": "group",
+          "name": "Shared kickoff",
+          "id": "e0210",
+          "children": [
+            {
+              "kind": "text",
+              "name": "Kickoff label",
+              "id": "e0211",
+              "x": 52,
+              "y": 892,
+              "w": 264,
+              "h": 25.369999999999997,
+              "lines": [
+                "Kickoff (local / Pacific)"
+              ],
+              "text": "Kickoff (local / Pacific)",
+              "size": 21.5,
+              "bold": true,
+              "italic": false,
+              "color": "#263445",
+              "align": "left",
+              "lh": 25.369999999999997
+            },
+            {
+              "kind": "text",
+              "name": "Kickoff time",
+              "id": "e0212",
+              "x": 332,
+              "y": 891,
+              "w": 1216,
+              "h": 25.959999999999997,
+              "lines": [
+                "10:37 AEST Fri Sep 11 / 17:37 PDT Thu Sep 10"
+              ],
+              "text": "10:37 AEST Fri Sep 11 / 17:37 PDT Thu Sep 10",
+              "size": 22,
+              "bold": false,
+              "italic": false,
+              "color": "#263445",
+              "align": "left",
+              "lh": 25.959999999999997
+            }
+          ]
+        },
+        {
+          "kind": "line",
+          "name": "Kickoff divider",
+          "id": "e0213",
+          "x": 52,
+          "y": 926,
+          "x2": 1548,
+          "y2": 926,
+          "stroke": "#CCD4DD",
+          "sw": 1.15
+        },
+        {
+          "kind": "line",
+          "name": "Outcome metric divider",
+          "id": "e0214",
+          "x": 538,
+          "y": 944,
+          "x2": 538,
+          "y2": 1052,
+          "stroke": "#CCD4DD",
+          "sw": 1.15
+        },
+        {
+          "kind": "line",
+          "name": "Outcome metric divider",
+          "id": "e0215",
+          "x": 1062,
+          "y": 944,
+          "x2": 1062,
+          "y2": 1052,
+          "stroke": "#CCD4DD",
+          "sw": 1.15
+        },
+        {
+          "kind": "group",
+          "name": "Closing spread",
+          "id": "e0216",
+          "children": [
+            {
+              "kind": "text",
+              "name": "Metric label",
+              "id": "e0217",
+              "x": 52,
+              "y": 948,
+              "w": 462,
+              "h": 27.139999999999997,
+              "lines": [
+                "Closing spread"
+              ],
+              "text": "Closing spread",
+              "size": 23,
+              "bold": true,
+              "italic": false,
+              "color": "#101F36",
+              "align": "center",
+              "lh": 27.139999999999997
+            },
+            {
+              "kind": "text",
+              "name": "Spread value",
+              "id": "e0218",
+              "x": 52,
+              "y": 997,
+              "w": 462,
+              "h": 37.76,
+              "lines": [
+                "Rams −3.5"
+              ],
+              "text": "Rams −3.5",
+              "size": 32,
+              "bold": true,
+              "italic": false,
+              "color": "#003594",
+              "align": "center",
+              "lh": 37.76
+            },
+            {
+              "kind": "text",
+              "name": "Spread explanation",
+              "id": "e0219",
+              "x": 52,
+              "y": 1041,
+              "w": 462,
+              "h": 23.599999999999998,
+              "lines": [
+                "Rams favored to win by 3.5 points"
+              ],
+              "text": "Rams favored to win by 3.5 points",
+              "size": 20,
+              "bold": false,
+              "italic": false,
+              "color": "#263445",
+              "align": "center",
+              "lh": 23.599999999999998
+            }
+          ]
+        },
+        {
+          "kind": "group",
+          "name": "Final score",
+          "id": "e0220",
+          "children": [
+            {
+              "kind": "text",
+              "name": "Metric label",
+              "id": "e0221",
+              "x": 562,
+              "y": 948,
+              "w": 476,
+              "h": 27.139999999999997,
+              "lines": [
+                "Final score"
+              ],
+              "text": "Final score",
+              "size": 23,
+              "bold": true,
+              "italic": false,
+              "color": "#101F36",
+              "align": "center",
+              "lh": 27.139999999999997
+            },
+            {
+              "kind": "text",
+              "name": "49ers score label",
+              "id": "e0222",
+              "x": 570,
+              "y": 1005,
+              "w": 112,
+              "h": 27.729999999999997,
+              "lines": [
+                "49ERS"
+              ],
+              "text": "49ERS",
+              "size": 23.5,
+              "bold": true,
+              "italic": false,
+              "color": "#AA0000",
+              "align": "center",
+              "lh": 27.729999999999997
+            },
+            {
+              "kind": "text",
+              "name": "Final score value",
+              "id": "e0223",
+              "x": 705,
+              "y": 983,
+              "w": 190,
+              "h": 56.64,
+              "lines": [
+                "27–7"
+              ],
+              "text": "27–7",
+              "size": 48,
+              "bold": true,
+              "italic": false,
+              "color": "#101F36",
+              "align": "center",
+              "lh": 56.64
+            },
+            {
+              "kind": "text",
+              "name": "Rams score label",
+              "id": "e0224",
+              "x": 918,
+              "y": 1005,
+              "w": 110,
+              "h": 27.729999999999997,
+              "lines": [
+                "RAMS"
+              ],
+              "text": "RAMS",
+              "size": 23.5,
+              "bold": true,
+              "italic": false,
+              "color": "#003594",
+              "align": "center",
+              "lh": 27.729999999999997
+            }
+          ]
+        },
+        {
+          "kind": "group",
+          "name": "Market residual",
+          "id": "e0225",
+          "children": [
+            {
+              "kind": "text",
+              "name": "Metric label",
+              "id": "e0226",
+              "x": 1086,
+              "y": 948,
+              "w": 462,
+              "h": 27.139999999999997,
+              "lines": [
+                "Market residual"
+              ],
+              "text": "Market residual",
+              "size": 23,
+              "bold": true,
+              "italic": false,
+              "color": "#101F36",
+              "align": "center",
+              "lh": 27.139999999999997
+            },
+            {
+              "kind": "text",
+              "name": "Highlighted residual",
+              "id": "e0227",
+              "x": 1086,
+              "y": 997,
+              "w": 462,
+              "h": 37.76,
+              "lines": [
+                "+23.5 points"
+              ],
+              "text": "+23.5 points",
+              "size": 32,
+              "bold": true,
+              "italic": false,
+              "color": "#AA0000",
+              "align": "center",
+              "lh": 37.76
+            },
+            {
+              "kind": "text",
+              "name": "Residual explanation",
+              "id": "e0228",
+              "x": 1086,
+              "y": 1041,
+              "w": 462,
+              "h": 23.599999999999998,
+              "lines": [
+                "49ers beat the spread by 23.5 points"
+              ],
+              "text": "49ers beat the spread by 23.5 points",
+              "size": 20,
+              "bold": false,
+              "italic": false,
+              "color": "#263445",
+              "align": "center",
+              "lh": 23.599999999999998
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "group",
+      "name": "07 Footer note",
+      "id": "e0229",
+      "children": [
+        {
+          "kind": "rect",
+          "name": "Light gray note background",
+          "id": "e0230",
+          "x": 24,
+          "y": 1092,
+          "w": 1552,
+          "h": 84,
+          "fill": "#F2F5F8",
+          "stroke": null,
+          "sw": 1.15,
+          "r": 10
+        },
+        {
+          "kind": "text",
+          "name": "Note label",
+          "id": "e0231",
+          "x": 44,
+          "y": 1102,
+          "w": 54,
+          "h": 23.009999999999998,
+          "lines": [
+            "Note."
+          ],
+          "text": "Note.",
+          "size": 19.5,
+          "bold": true,
+          "italic": false,
+          "color": "#263445",
+          "align": "left",
+          "lh": 23.009999999999998
+        },
+        {
+          "kind": "text",
+          "name": "Full note",
+          "id": "e0232",
+          "x": 106,
+          "y": 1102,
+          "w": 1448,
+          "h": 69,
+          "lines": [
+            "Market residual = actual scoring margin − closing-spread-implied margin; positive values indicate performance better than the closing-market expectation. Departure",
+            "and arrival clock times were not imputed. The scheduled kickoff was 10:35 AEST; 10:37 AEST is the official actual kickoff. Abbreviations: AEST, Australian Eastern",
+            "Standard Time; h, hours; PDT, Pacific Daylight Time."
+          ],
+          "text": "Market residual = actual scoring margin − closing-spread-implied margin; positive values indicate performance better than the closing-market expectation. Departure and arrival clock times were not imputed. The scheduled kickoff was 10:35 AEST; 10:37 AEST is the official actual kickoff. Abbreviations: AEST, Australian Eastern Standard Time; h, hours; PDT, Pacific Daylight Time.",
+          "size": 19.5,
+          "bold": false,
+          "italic": false,
+          "color": "#263445",
+          "align": "left",
+          "lh": 23
+        }
+      ]
+    }
+  ]
+}
