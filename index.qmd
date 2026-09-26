@@ -24,7 +24,7 @@ affiliations:
   - id: utah
     name: Department of Health and Kinesiology, University of Utah, Salt Lake City, UT, USA
 abstract: |
-  Long-haul travel exposes athletes to travel fatigue and jet lag, yet optimal arrival timing remains uncertain. This observational case study compared arrival strategies for the 2026 National Football League game in Melbourne, Australia: the 49ers arrived seven nights before kickoff and the Rams ~28 hours before kickoff. Historical London and post-international games provided additional context. Using nflverse data, we compared scoring margin, performance relative to the closing point spread, and offensive and defensive play-based measures compared with team-specific season references. The 49ers won 27–7 as 3.5-point underdogs, yielding a +23.5-point market residual. The 49ers’ offensive performance was generally favorable relative to their 2025 reference season, whereas the Rams’ offensive EPA/play was lower than in all 17 of their 2025 regular-season games. Both teams won their first post-Melbourne game and exceeded closing-market expectations. In London games, the early-arriving 49ers were 2–0 and the short-stay Rams 3–0, with all wins exceeding closing-market expectations. Melbourne demonstrated contrasting performance outcomes under different arrival schedules, following historical success with both approaches. Team differences and unmeasured sleep, fatigue, and circadian phase preclude attributing outcomes to arrival timing. Our findings highlight the need to consider journey demands alongside circadian timing when designing arrival strategies. 
+  Long-haul travel exposes athletes to travel fatigue and jet lag, yet optimal arrival timing remains uncertain. This observational case study compared arrival strategies for the 2026 National Football League game in Melbourne, Australia: the 49ers arrived seven nights before kickoff and the Rams ~28 hours before kickoff. Historical London and post-international games provided additional context. Using nflverse data, we examined scoring margin, performance relative to the closing point spread, and offensive and defensive play-based measures compared with team-specific season references. The 49ers won 27–7 as 3.5-point underdogs, yielding a +23.5-point market residual. The 49ers’ offensive performance was generally favorable relative to their 2025 reference season, whereas the Rams’ offensive EPA/play was lower than in all 17 of their 2025 regular-season games. Both teams won their first post-Melbourne games and exceeded closing-market expectations. In London games, the early-arriving 49ers were 2–0 and the short-stay Rams 3–0, with all wins exceeding closing-market expectations. Melbourne demonstrated contrasting performance outcomes under different arrival schedules, following historical success with both approaches. Team differences and unmeasured sleep, fatigue, and circadian phase preclude attributing outcomes to arrival timing. Our findings highlight the need to consider journey demands alongside circadian timing when designing arrival strategies. 
 keywords:
   - National Football League
   - international travel
@@ -83,7 +83,7 @@ competition timing is compatible with an origin-based schedule
 [@forbesrobertson2012; @janse2021]. Research in non-athlete travelers
 provides some support for retaining home-based sleep schedules during
 short stays, with reduced sleepiness and jet-lag symptoms [@lowden1998].
-In priniciple, maintaining closer alignment with the origin time zone
+In principle, maintaining closer alignment with the origin time zone
 could also reduce the need for readjustment on return home
 [@forbesrobertson2012]. However, later arrival leaves less time for
 recovery from travel fatigue and preparation in the competition setting
@@ -172,7 +172,7 @@ preceding road game rather than directly from California
 (@tbl-historical-context). London kickoff times ranged between
 approximately 6:32 and 10:07 a.m. Pacific time. In contrast, the
 Melbourne game was the first regular season game of 2026 and followed
-travel directly from California, with kickoff at 17:37 Pacific time.The
+travel directly from California, with kickoff at 17:37 Pacific time. The
 first regular-season game following Melbourne and each historical London
 trip was also examined. After all five London games, the teams had a bye
 week and played their next game 14 days later. Following the Melbourne
@@ -261,7 +261,7 @@ games in the 2025 reference season, opponent averages were calculated
 from their other regular-season games that year, excluding the game
 being adjusted. League averages used all regular-season games in the
 corresponding year. Because the Melbourne and next game after Melbourne
-travel occurred at the beginning of the 2026 season, the compete 2025
+travel occurred at the beginning of the 2026 season, the complete 2025
 regular season was used to provide a stable pre-event reference. These
 averages were weighted by eligible plays for EPA and success rates,
 eligible pass attempts for CPOE, and eligible quarterback dropbacks for
@@ -356,9 +356,9 @@ added.](figures/final/melbourne_outcome_performance.png){#fig-melbourne-performa
 fig-alt="Melbourne game outcome versus market expectation, native-unit EPA and success rates, and standardized performance relative to the frozen 2025 full-season references."
 width="100%"}
 
-**49ers offense versus Rams defense**. The 49ers’ offensive EPA/play was
-+0.190, above their 2025 season mean of +0.090, and remained above the
-corresponding mean after opponent adjustment (+0.272 versus +0.120).
+**49ers' offense versus Rams' defense**. The 49ers’ offensive EPA/play
+was +0.190, above their 2025 season mean of +0.090, and remained above
+the corresponding mean after opponent adjustment (+0.272 versus +0.120).
 Their offensive success rate was 56.9%, compared with a reference mean
 of 48.5%. Their success rate exceeded the values in 16 of their 17 games
 in 2025 in both unadjusted and opponent-adjusted analyses
@@ -370,9 +370,9 @@ below their 2025 mean of +5.4 percentage points. The Rams recorded no
 sacks on 36 San Francisco dropbacks, yielding a defensive sack rate of
 0%, compared with a 2025 defensive sack rate of 7.1%.
 
-**Rams offense versus 49ers defense**. The Rams’ offensive EPA/play was
-−0.226, below their 2025 season mean of +0.149, and was lower than in
-all 17 reference games before and after opponent adjustment
+**Rams' offense versus 49ers' defense**. The Rams’ offensive EPA/play
+was −0.226, below their 2025 season mean of +0.149, and was lower than
+in all 17 reference games before and after opponent adjustment
 (@fig-melbourne-performance). The Rams’ offensive success rate was
 43.3%, compared with a 2025 season reference mean of 52.2%, with three
 of 17 reference games having lower rates. After opponent adjustment,
@@ -441,7 +441,7 @@ offensive EPA remained above average after opponent adjustment
 only in 2017, and CPOE only in 2025. The Rams allowed one sack across
 the three London games. Defensive EPA allowed was lower (better) than
 the season average in 2017 and 2025 but worse in 2019, in both
-unadjusted and adjusted analyses. The Rams went 2–1 in its first games
+unadjusted and adjusted analyses. The Rams went 2–1 in their first games
 after the trips. Offensive EPA/play was above the season average after
 the 2017 and 2025 trips but below it after 2019. Defensive EPA allowed
 was lower (better) than the season average in all three post-trip games
@@ -472,11 +472,11 @@ The early-arriving 49ers substantially outperformed the short-stay Rams
 in Melbourne, both in the game result and relative to closing-market
 expectations. The magnitude of the result was unusual relative to both
 teams’ 2025 performance: the 49ers’ market residual exceeded all values
-in the reference season, wereas the Rams’ residual was below all values
+in the reference season, whereas the Rams’ residual was below all values
 in theirs. The 49ers’ offensive EPA/play also exceeded their 2025
 regular-season mean, whereas the Rams’ offensive EPA/play was lower than
 in any of their 2025 regular-season games. Both teams subsequently won
-their first post-Melbourne game and exceeded closing-market
+their first post-Melbourne games and exceeded closing-market
 expectations. Importantly, successful international performances were
 not unique to either arrival approach. In the a priori selected
 historical London games the 49ers won both games following early arrival
@@ -530,7 +530,7 @@ preparing for an important game. The 49ers’ earlier arrival provided
 more time for this adjustment and recovery, although neither team’s
 sleep was measured. Experimental evidence indicates that acute sleep
 loss can impair strength, power, endurance, and skill performance, with
-effects depending on the pattern of sleep loss timing of assessment
+effects depending on the pattern of sleep loss and timing of assessment
 [@craven2022]. However, that meta-analysis excluded assessments
 following recovery sleep, and thus cannot establish whether any
 impairment would have persisted after the Rams’ sleep opportunity in
@@ -545,7 +545,7 @@ post-travel mornings following another trip [@uchiyama2025travel].
 Differences in itineraries and assessment schedules prevent direct
 comparison of recovery rates, but these findings caution against
 assuming that recovery in one measure indicates readiness across all
-aspects of athletic performance.The two franchises’ arrival approaches
+aspects of athletic performance. The two franchises’ arrival approaches
 distributed preparation and recovery time differently: later departure
 preserved more time in familiar home-based routines, whereas earlier
 arrival provided more time to recover after the journey. Their relative
@@ -583,7 +583,7 @@ circadian phase delays [@khalsa2003], illustrating that maintaining an
 origin-based schedule requires active management of light exposure in
 addition to sleep/wake timing. However, neither individual light
 exposure nor circadian phase was measured in the Rams, so whether their
-intended Pacific-time alignment was maintained or whether meanginful
+intended Pacific-time alignment was maintained or whether meaningful
 phase shifting occurred is unknown.
 
 ## Strengths and limitations
@@ -643,10 +643,9 @@ contributed to the Melbourne result. For journeys of this duration,
 protecting sleep and allowing time for recovery before competition are
 reasonable precautions consistent with athlete-travel guidance
 [@janse2021]. Prospective studies across repeated long-haul trips should
-directly measure sleep, fatigue, light exposure, and circadian phase
-alongside multiple performance outcomes to determine how arrival timing
-impacts these measures, both for the international competition as well
-as after subsequent/return travel.
+directly measure sleep, fatigue, light exposure, circadian phase, and
+performance to determine how these outcomes are affected by arrival
+timing during international competition and after return travel.
 
 # Funding
 
@@ -657,6 +656,12 @@ No funding was received for this study.
 The authors report no competing interests.
 
 # Data and code availability
+
+The NFL play-by-play and schedule data used in this study were obtained
+from the publicly available nflverse project. Archived versions of the
+data used for the analyses, along with all analysis code required to
+reproduce the results, tables, and figures, are available at
+<https://github.com/JasonDude16/nfl-melbourne-2026-travel-performance>.
 
 # Author contributions
 
