@@ -1,5 +1,0 @@
-check,rows,fields,max_absolute_difference,passed
-paper_comparisons.csv,224,8,3.3306690738754696e-15,TRUE
-paper_games.csv,14,10,0,TRUE
-historical_context.csv,5,3,0,TRUE
-reference_games.csv,98,16,1.7763568394002505e-15,TRUE
