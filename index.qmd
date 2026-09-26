@@ -663,17 +663,6 @@ data used for the analyses, along with all analysis code required to
 reproduce the results, tables, and figures, are available at
 <https://github.com/JasonDude16/nfl-melbourne-2026-travel-performance>.
 
-# Author contributions
-
-**Jason Dude:** Investigation, Data curation, Software, Formal analysis,
-Validation, Visualization, Writing – original draft.
-
-**Tanya Halliday:** Conceptualization, Methodology, Writing – review &
-editing, Supervision.
-
-**Christopher Depner:** Conceptualization, Methodology, Writing – review
-& editing, Supervision.
-
 # Generative-AI disclosure
 
 OpenAI Codex was used to assist with literature searches and reference
