@@ -146,7 +146,7 @@ teams’ shared setting, contrasting travel timing and preparation
 approaches, nights in Melbourne before kickoff, and turnaround to their
 next game. Abbreviations: AEST, Australian Eastern Standard Time; PDT,
 Pacific Daylight Time; h,
-hours.](figures/final/melbourne_travel_context_no_game_panel.png){#fig-melbourne-travel
+hours.](figures/melbourne_travel_context_no_game_panel.png){#fig-melbourne-travel
 fig-alt="Visual comparison of the 49ers and Rams 2026 Melbourne travel context. Both teams originated in Pacific time and shared the Melbourne Cricket Ground venue and kickoff. The 49ers arrived approximately seven days before kickoff and spent seven destination nights; the Rams arrived 28 hours before kickoff and spent one destination night. The Rams were favored by 3.5 points, and the 49ers won 27 to 7 for a positive 23.5-point market residual."
 width="100%"}
 
@@ -180,7 +180,7 @@ game, the 49ers played their next regular season game 10 days later and
 the Rams 11 days later.
 
 :::: {#tbl-historical-context}
-![](tables/final/table_1_historical_international_context.png){fig-alt="Historical international games, travel arrangements, and results in the next game. Five London episodes show each team's opponent, travel schedule, arrival timing, pregame record, international result relative to market expectations, and first following game after the bye week."
+![](tables/table_1_historical_international_context.png){fig-alt="Historical international games, travel arrangements, and results in the next game. Five London episodes show each team's opponent, travel schedule, arrival timing, pregame record, international result relative to market expectations, and first following game after the bye week."
 width="100%"}
 
 ::: table-note
@@ -352,7 +352,7 @@ original-unit values in panel B and standardized differences in panel C.
 Each team’s unadjusted offensive values and its opponent’s unadjusted
 defensive values describe the same plays and are not independent
 outcomes. EPA, expected points
-added.](figures/final/melbourne_outcome_performance.png){#fig-melbourne-performance
+added.](figures/melbourne_outcome_performance.png){#fig-melbourne-performance
 fig-alt="Melbourne game outcome versus market expectation, native-unit EPA and success rates, and standardized performance relative to the frozen 2025 full-season references."
 width="100%"}
 
@@ -428,7 +428,7 @@ excluded from these contextual averages, leaving 14 games for the
 2010–2019 episodes and 15 games for 2025. Positive market residuals
 indicate performance above closing-market expectations. Bar-end labels
 report values in
-points.](figures/final/historical_score_market_baselines.png){#fig-historical-market
+points.](figures/historical_score_market_baselines.png){#fig-historical-market
 fig-alt="Scoring margin and performance versus market before, during, and after the five historical international trips."
 width="100%"}
 
@@ -460,7 +460,7 @@ consistently indicate better performance. Gray bars show unadjusted
 performance, whereas red and blue bars show opponent-adjusted
 performance for the 49ers and Rams, respectively; each uses its
 corresponding reference distribution. EPA, expected points
-added.](figures/final/historical_international_return_play_metrics.png){#fig-historical-play-metrics
+added.](figures/historical_international_return_play_metrics.png){#fig-historical-play-metrics
 fig-alt="Standardized EPA and success-rate performance during and after the five historical international trips."
 width="100%"}
 

@@ -1,6 +1,6 @@
 # Melbourne travel-context figure
 
-`scene.json` and `build_figure.py` are the single reproducible source for the approved travel figure. The builder exports the SVG, PDF, and PNG to `figures/final/`; no hidden build directory or duplicate script is needed.
+`scene.json` and `build_figure.py` are the single reproducible source for the approved travel figure. The builder exports the editable SVG and manuscript PNG to `figures/`. It uses a temporary PDF to produce the PNG and removes that intermediate file automatically.
 
 Run from the project root:
 

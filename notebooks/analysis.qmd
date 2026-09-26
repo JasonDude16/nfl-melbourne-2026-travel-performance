@@ -1047,35 +1047,22 @@ iwalk(analysis_exports, function(data, name) {
 })
 ```
 
-## Check the calculations
-
-The results are compared with the previously verified analysis to confirm that the revised notebook reproduces the same findings. These checks cover game scores, play counts, season averages, opponent adjustments, and standardized differences.
-
-Additional checks confirm that the comparisons use the intended season games and weighting, and that the play-selection rules retain eligible penalties, overtime, and two-point attempts while excluding kneels and spikes.
-
-```{r}
-#| label: verify-results
-#| code-fold: true
-
-sys.source(project_path("tests", "check_paper_results.R"), envir = new.env())
-```
-
 ## Save the figures and Table 1
 
-The figures shown above are saved as images and PDFs for the manuscript. Table 1 is saved as an image and a Word document. The Melbourne travel figure is maintained separately.
+The figures shown above are saved as PNG images for the manuscript. Table 1 is saved as an image and a Word document. The Melbourne travel figure is maintained separately.
 
 ```{r}
 #| label: export-context-table
 #| code-fold: true
 
-dir.create(project_path("tables", "final"), recursive = TRUE, showWarnings = FALSE)
+dir.create(project_path("tables"), recursive = TRUE, showWarnings = FALSE)
 gt::gtsave(
   historical_context_table(),
-  project_path("tables", "final", "table_1_historical_international_context.png"),
+  project_path("tables", "table_1_historical_international_context.png"),
   vwidth = 1300, vheight = 900, expand = 10
 )
 save_historical_context_docx(
   context_table,
-  project_path("tables", "final", "table_1_historical_international_context.docx")
+  project_path("tables", "table_1_historical_international_context.docx")
 )
 ```

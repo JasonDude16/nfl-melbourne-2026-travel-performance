@@ -10,19 +10,21 @@ manuscript_theme <- function() {
     )
 }
 
-# Use the same devices, dimensions, and resolution as the approved figures.
-save_paper_figure <- function(figure, stem, width, height) {
-  directory <- project_path("figures", "final")
+# Save manuscript PNGs; request a vector PDF explicitly when needed.
+save_paper_figure <- function(figure, stem, width, height, export_pdf = FALSE) {
+  directory <- project_path("figures")
   dir.create(directory, recursive = TRUE, showWarnings = FALSE)
-  vector_device <- function(filename, width, height, bg, ...) {
-    if (capabilities("aqua")) {
-      grDevices::quartz(type = "pdf", file = filename, width = width, height = height, bg = bg, ...)
-    } else {
-      grDevices::cairo_pdf(filename = filename, width = width, height = height, bg = bg, ...)
-    }
-  }
   ggplot2::ggsave(file.path(directory, paste0(stem, ".png")), figure,
                   width = width, height = height, dpi = 600, bg = "white")
-  ggplot2::ggsave(file.path(directory, paste0(stem, ".pdf")), figure, device = vector_device,
+  if (export_pdf) {
+    vector_device <- function(filename, width, height, bg, ...) {
+      if (capabilities("aqua")) {
+        grDevices::quartz(type = "pdf", file = filename, width = width, height = height, bg = bg, ...)
+      } else {
+        grDevices::cairo_pdf(filename = filename, width = width, height = height, bg = bg, ...)
+      }
+    }
+    ggplot2::ggsave(file.path(directory, paste0(stem, ".pdf")), figure, device = vector_device,
                   width = width, height = height, bg = "white")
+  }
 }

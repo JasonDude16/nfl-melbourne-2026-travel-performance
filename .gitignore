@@ -4,8 +4,11 @@
 _manuscript/
 _freeze/
 .quarto/
-drafts/
+submissions/
 data/derived
 supplement/
 /.quarto/
 **/*.quarto_ipynb
+
+# Optional standalone figure PDFs; manuscript PDF output is in _manuscript/.
+/figures/*.pdf

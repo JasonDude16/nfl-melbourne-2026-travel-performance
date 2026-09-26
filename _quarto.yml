@@ -13,8 +13,8 @@ manuscript:
       title: "NFL Melbourne 2026: reproducible analysis"
   resources:
     - data/derived/*.csv
-    - figures/final/*
-    - tables/final/*
+    - figures/*
+    - tables/*
     - supplement/*.md
 
 format:
@@ -40,7 +40,7 @@ format:
       x: 1in
       y: 1in
 
-bibliography: references/references.bib
+bibliography: references.bib
 number-sections: true
 notebook-links: global
 quarto-required: ">=1.4.0"

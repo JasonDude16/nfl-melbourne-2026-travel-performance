@@ -1,8 +1,8 @@
 """Export the Melbourne travel-context figure without its game-outcome panel.
 
 Uses the editable scene that generated the existing figure. The original figure
-and scene are not modified. Run with the bundled Python runtime, then render
-the PDF with pdftoppm for the manuscript-ready PNG.
+and scene are not modified. A temporary PDF is rendered with pdftoppm for the
+manuscript-ready PNG; only the SVG and PNG are kept.
 """
 
 from __future__ import annotations
@@ -13,6 +13,7 @@ import json
 from pathlib import Path
 import shutil
 import subprocess
+import tempfile
 
 from reportlab.lib.colors import HexColor
 from reportlab.pdfbase import pdfmetrics
@@ -22,7 +23,7 @@ from reportlab.pdfgen import canvas
 
 ROOT = Path(__file__).resolve().parent
 SOURCE = ROOT / "scene.json"
-OUTPUT = ROOT.parents[2] / "figures" / "final"
+OUTPUT = ROOT.parents[2] / "figures"
 OUTPUT.mkdir(parents=True, exist_ok=True)
 STEM = "melbourne_travel_context_no_game_panel"
 WIDTH = 1600
@@ -190,22 +191,11 @@ svg = (
 )
 (OUTPUT / f"{STEM}.svg").write_text(svg)
 
-scale = PHYSICAL_WIDTH_MM / 25.4 * 72 / WIDTH
-pdf = canvas.Canvas(
-    str(OUTPUT / f"{STEM}.pdf"),
-    pagesize=(WIDTH * scale, HEIGHT * scale),
-    pageCompression=1,
-    initialFontName="Arial",
-)
-pdf.setTitle("2026 Melbourne travel and game context, without game-outcome panel")
-pdf.scale(scale, scale)
-
-
-def draw(node):
+def draw(node, pdf):
     kind = node["kind"]
     if kind == "group":
         for child in node["children"]:
-            draw(child)
+            draw(child, pdf)
         return
     pdf.saveState()
     if node.get("fill"):
@@ -251,16 +241,26 @@ def draw(node):
     pdf.restoreState()
 
 
-draw(scene)
-pdf.showPage()
-pdf.save()
-
 renderer = shutil.which("pdftoppm")
 if renderer is None:
     raise RuntimeError("pdftoppm is required to make the PNG")
-subprocess.run(
-    [renderer, "-f", "1", "-singlefile", "-r", "300", "-png",
-     str(OUTPUT / f"{STEM}.pdf"), str(OUTPUT / STEM)],
-    check=True,
-)
-print(f"Created {STEM}.svg, .pdf, and .png in {OUTPUT}")
+with tempfile.TemporaryDirectory(prefix="melbourne-travel-") as temporary:
+    pdf_path = Path(temporary) / f"{STEM}.pdf"
+    scale = PHYSICAL_WIDTH_MM / 25.4 * 72 / WIDTH
+    pdf = canvas.Canvas(
+        str(pdf_path),
+        pagesize=(WIDTH * scale, HEIGHT * scale),
+        pageCompression=1,
+        initialFontName="Arial",
+    )
+    pdf.setTitle("2026 Melbourne travel and game context, without game-outcome panel")
+    pdf.scale(scale, scale)
+    draw(scene, pdf)
+    pdf.showPage()
+    pdf.save()
+    subprocess.run(
+        [renderer, "-f", "1", "-singlefile", "-r", "300", "-png",
+         str(pdf_path), str(OUTPUT / STEM)],
+        check=True,
+    )
+print(f"Created {STEM}.svg and .png in {OUTPUT}")
