@@ -7,3 +7,5 @@ _freeze/
 drafts/
 data/derived
 supplement/
+/.quarto/
+**/*.quarto_ipynb
