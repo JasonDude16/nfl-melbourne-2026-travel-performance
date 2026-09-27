@@ -10,13 +10,9 @@ editor_options:
 
 # Setup
 
-This notebook explains how the study’s game data were used to calculate the results reported in the manuscript. It begins with game selection and the measures of performance, then describes the comparisons with opponents and season averages. Results are presented first for Melbourne and then for the historical London games.
+This notebook loads the archived data, defines the selected games, and compares their schedule and play-by-play records. It then calculates game-level performance, opponent adjustments, and season comparisons. Results are presented first for Melbourne and then for the historical London games.
 
 Schedule, scoring, closing point-spread, and play-by-play data were obtained from nflverse on September 24, 2026. The analysis uses the saved copies from that date. Data from the 2010, 2013, 2017, 2019, and 2025 regular seasons provide the season comparisons and information about opponents. The 2026 data provide the Melbourne game and each team’s first following game.
-
-The Melbourne game brought together two teams with different arrival schedules: the 49ers arrived early and spent the week in Melbourne, whereas the Rams arrived shortly before the game. Selected London games provide historical context for these approaches. The analysis includes the 49ers’ 2010 and 2013 games and the Rams’ 2017, 2019, and 2025 games, when each team used an arrival schedule similar to its Melbourne approach.
-
-The 49ers’ Mexico City games were excluded because they involved shorter journeys and less time-zone displacement. The Rams’ 2012 and 2016 London games were excluded because the team arrived early on those trips.
 
 The first regular-season game after each trip is also included. Together, these games provide 14 team performances: ten from the historical episodes and four from Melbourne and the two following games. Melbourne contributes two performances because both teams are included in the study.
 
@@ -35,7 +31,7 @@ suppressPackageStartupMessages({
 #| purl: true
 #| code-fold: true
 
-# checks that project is open and allows user to run notebook directly without changing paths
+# Resolve paths from the project root or the notebooks directory.
 project_path <- function(...) {
   root <- if (file.exists("_quarto.yml")) "." else ".."
 
@@ -46,12 +42,41 @@ project_path <- function(...) {
   return(file.path(normalizePath(root), ...))
 }
 
-# once path is correct we can load helpers
+# Load the figure and table presentation helpers.
 source(project_path("R", "figure_helpers.R"))
 source(project_path("R", "historical_figures.R"))
 source(project_path("R", "melbourne_performance_figure.R"))
 source(project_path("R", "contextual_tables.R"))
 ```
+
+The schedule and play-by-play snapshots are loaded once here. The play-by-play datasets are stored in `pbp_list`, with one entry named for each season, so later calculations can retrieve the relevant season without reading the files again.
+
+```{r}
+#| label: archived-inputs
+#| code-fold: true
+
+snapshot_date <- "2026-09-24"
+seasons <- c(2010, 2013, 2017, 2019, 2025, 2026)
+
+pbp_paths <- project_path(
+  "data", "raw", "nflverse",
+  paste0("pbp_", seasons, "_asof_", snapshot_date, ".rds")
+) |>
+  set_names(seasons)
+
+schedule_path <- project_path(
+  "data", "raw", "nflverse",
+  paste0(
+    "schedules_", paste(seasons, collapse = "_"),
+    "_asof_", snapshot_date, ".rds"
+  )
+)
+
+pbp_list <- map(pbp_paths, ~ as_tibble(readRDS(.x)))
+df_schedules <- as_tibble(readRDS(schedule_path))
+```
+
+The game registry identifies each selected team-game and its expected opponent, week, and final score. The reference-team table identifies the team-seasons used for comparison: the corresponding seasons for the historical episodes and 2025 for both Melbourne teams.
 
 ```{r}
 df_game_registry <- tribble(
@@ -82,33 +107,6 @@ df_reference_team_seasons <- tribble(
   2025, "LA",
   2025, "SF"
 )
-```
-
-```{r}
-#| label: archived-inputs
-#| code-fold: true
-
-snapshot_date <- "2026-09-24"
-seasons <- c(2010, 2013, 2017, 2019, 2025, 2026)
-
-pbp_paths <- project_path(
-  "data", "raw", "nflverse",
-  paste0("pbp_", seasons, "_asof_", snapshot_date, ".rds")
-) |>
-  set_names(seasons)
-
-schedule_path <- project_path(
-  "data", "raw", "nflverse",
-  paste0(
-    "schedules_", paste(seasons, collapse = "_"),
-    "_asof_", snapshot_date, ".rds"
-  )
-)
-```
-
-```{r}
-pbp_list <- map(pbp_paths, ~ as_tibble(readRDS(.x)))
-df_schedules <- as_tibble(readRDS(schedule_path))
 ```
 
 ## Historical travel context (Table 1)
@@ -178,6 +176,8 @@ Scoring margin is the number of points a team scored minus the number it concede
 
 Each game is considered from both teams’ perspectives. Because the point spread in the source data is expressed from the home team’s perspective, its sign is reversed for the away team. Team abbreviations used in older seasons are also matched to the corresponding franchises in the play-by-play data.
 
+The function below converts each regular-season schedule record into two team-level records, with scores and expected margins expressed from each team’s perspective.
+
 ```{r}
 #| label: team-schedule-definition
 #| purl: true
@@ -221,23 +221,44 @@ team_schedule <- function(df_schedules) {
 }
 ```
 
-## Check the game information
+```{r}
+df_team_schedules <- team_schedule(df_schedules)
+```
 
-The selected games are checked for the correct teams, opponents, weeks, and final scores, and for the availability of closing point spreads. Scores in the schedule data are also compared with those in the play-by-play data.
+## Data checks
 
-The next step confirms that each following game was the team’s first regular-season game after the trip. These games occurred 14 days after each historical London game, 10 days after Melbourne for the 49ers, and 11 days after Melbourne for the Rams.
+The following tables compare the selected games with the archived records. They show opponents and weeks first, return-game dates second, and final scores third. Expected values come from the game registry; recorded values come from the schedule and play-by-play data.
 
 ```{r}
-#| label: validate-schedules
-
-df_team_schedules <- team_schedule(df_schedules)
-
 df_schedule_validation <- df_game_registry |>
   left_join(
     df_team_schedules,
     by = join_by(season, team, game_id),
     relationship = "one-to-one"
   )
+```
+
+Expected opponents and weeks are shown beside the schedule values. The closing expected margin is also displayed so that missing point-spread data are visible.
+
+```{r}
+df_schedule_validation |>
+  select(
+    season,
+    team,
+    game_id,
+    expected_opponent,
+    opponent,
+    expected_week,
+    week,
+    expected_margin
+  ) |> 
+  knitr::kable()
+```
+
+For each team and season, the schedule is ordered by date to identify the next regular-season game. That game is then compared with the return game listed in the registry.
+
+```{r}
+#| label: validate-schedules
 
 df_following_games <- df_team_schedules |>
   arrange(season, team, gameday) |>
@@ -268,6 +289,25 @@ df_episode_validation <- df_schedule_validation |>
   )
 ```
 
+The registered return game and the next scheduled game should have the same game ID. The table also compares the elapsed time with the expected interval: 14 days for the London trips, 10 days for San Francisco after Melbourne, and 11 days for Los Angeles.
+
+```{r}
+df_episode_validation |>
+  select(
+    season,
+    team,
+    registered_return,
+    next_game_id,
+    gameday,
+    next_game_date,
+    expected_interval,
+    days_to_next_game
+  ) |> 
+  knitr::kable()
+```
+
+For each selected game, the function below extracts the highest cumulative home and away scores recorded in the play-by-play data and expresses them from the selected team’s perspective.
+
 ```{r}
 #| label: validate-play-by-play
 
@@ -290,15 +330,41 @@ validate_pbp_scores <- function(year) {
     mutate(
       pbp_points_for = if_else(team == home_team, home_score, away_score),
       pbp_points_against = if_else(team == home_team, away_score, home_score),
-      passed = points_for == pbp_points_for & points_against == pbp_points_against
+      difference_for = pbp_points_for - points_for,
+      difference_against = pbp_points_against - points_against
     ) |>
-    select(season, team, game_id, points_for, points_against, passed)
+    select(
+      season,
+      team,
+      game_id,
+      expected_points_for,
+      expected_points_against,
+      points_for,
+      points_against,
+      pbp_points_for,
+      pbp_points_against,
+      difference_for,
+      difference_against
+    )
   
   return(df_res)
 }
+```
 
-df_pbp_validation <- map(seasons, validate_pbp_scores) |> list_rbind()
-df_pbp_validation |> knitr::kable()
+The table compares final scores from the registry, schedule, and play-by-play records. Score pairs are shown as points for–points against. The difference columns subtract the schedule scores from the play-by-play scores; zero indicates agreement. Registry scores are shown alongside them for direct comparison.
+
+```{r}
+df_pbp_validation <- map_dfr(seasons, validate_pbp_scores)
+df_pbp_validation |>
+  transmute(
+    team,
+    game_id,
+    registry_score = paste(expected_points_for, expected_points_against, sep = "–"),
+    schedule_score = paste(points_for, points_against, sep = "–"),
+    pbp_score = paste(pbp_points_for, pbp_points_against, sep = "–"),
+    difference_for, difference_against
+  ) |>
+  knitr::kable()
 ```
 
 ## Measures of play performance
@@ -366,7 +432,6 @@ calculate_game_metrics <- function(df_pbp, df_schedules) {
     )
   
   df_epa_plays <- df_reg_plays |> filter(rush == 1 | pass == 1, !is.na(epa))
-  stopifnot(all(df_epa_plays$success == as.numeric(df_epa_plays$epa > 0)))
 
   df_offense <- df_epa_plays |>
     summarise(
@@ -459,6 +524,57 @@ df_melbourne_observed <- pbp_list[["2026"]] |>
   calculate_game_metrics(df_schedules)
 ```
 
+### Inspect the play denominators
+
+The table below shows the number of eligible plays, pass attempts, and dropbacks contributing to each selected team-game. Different outcomes use different denominators, so these counts need not be equal. Each registered team-game should appear once; missing counts would indicate missing game-level results.
+
+```{r}
+#| label: inspect-play-denominators
+
+df_game_registry |>
+  select(season, team, game_id) |>
+  left_join(
+    bind_rows(df_league_game_metrics, df_melbourne_observed),
+    by = join_by(season, team, game_id),
+    relationship = "one-to-one"
+  ) |>
+  select(
+    season,
+    team,
+    game_id,
+    offensive_plays,
+    defensive_plays,
+    pass_attempts,
+    offensive_dropbacks,
+    defensive_dropbacks
+  ) |> 
+  knitr::kable()
+```
+
+The analysis defines a successful play as one with EPA above zero. This check applies the same play-eligibility rules across all six archived seasons and compares that definition with the source data’s success indicator. Missing indicators and disagreements are counted separately; both counts should be zero. The 2026 row covers all eligible plays in the archived snapshot, including games outside the selected Melbourne episode.
+
+```{r}
+#| label: inspect-success-definition
+
+df_success_definition <- map_dfr(pbp_list, function(df_pbp) {
+  df_pbp |>
+    filter(
+      season_type == "REG",
+      !coalesce(qb_kneel == 1, FALSE), !coalesce(qb_spike == 1, FALSE),
+      !is.na(posteam), posteam != "", !is.na(defteam), defteam != "",
+      rush == 1 | pass == 1, !is.na(epa)
+    ) |>
+    summarise(
+      eligible_plays = n(),
+      missing_success = sum(is.na(success)),
+      differing_success = sum(success != as.numeric(epa > 0), na.rm = TRUE),
+      .by = season
+    )
+})
+
+df_success_definition |> knitr::kable()
+```
+
 # Opponent-adjusted analyses
 
 Teams face opponents of differing strength. The opponent-adjusted analyses describe how a game’s performance compares after allowing for the opponent’s usual performance relative to the league:
@@ -506,7 +622,7 @@ These averages account for the number of opportunities contributing to each meas
 adjust_one_metric <- function(metric, opponent_metric, opponent_weight, league_metric,
                               league_weight, df_games, df_league_games, reference_season) {
   
-  # rename for clarity
+  # Use the specified reference season when supplied; otherwise retain all seasons.
   df_reference <- df_league_games
   if (!is.null(reference_season)) {
     df_reference <- df_reference |> filter(season == reference_season)
@@ -788,9 +904,29 @@ df_historical_score_context <- df_team_game_metrics |>
     n_games = n(),
     .by = c(season, team)
   )
+```
+
+### Inspect the reference seasons
+
+The table shows the number and date range of games in each team’s full reference season. The `comparison_games` column gives the smallest and largest game counts used in the calculated comparisons. Historical comparisons exclude the focal game; Melbourne comparisons use all 17 games from 2025. Los Angeles therefore has a range of 16–17 for its 2025 reference season, which serves both the historical 2025 episode and the Melbourne episode.
+
+```{r}
+#| label: inspect-reference-seasons
+
+df_reference_counts <- bind_rows(df_historical_comparisons, df_melbourne_comparisons) |>
+  mutate(reference_season = if_else(season == 2026, 2025, season)) |>
+  summarise(
+    comparison_games = paste(min(reference_n_games), max(reference_n_games), sep = "–"),
+    .by = c(reference_season, team)
+  )
 
 df_team_game_metrics |>
-  summarise(reference_games = n(), .by = c(season, team)) |>
+  summarise(
+    season_games = n_distinct(game_id),
+    first_game = min(gameday), last_game = max(gameday),
+    .by = c(season, team)
+  ) |>
+  left_join(df_reference_counts, by = join_by(season == reference_season, team)) |>
   knitr::kable()
 ```
 
@@ -987,7 +1123,8 @@ historical_figures_list <- build_historical_figures(
 save_paper_figure(
   historical_figures_list$outcomes, 
   "historical_score_market_baselines", 
-  9, 5.85)
+  9, 5.85
+)
 
 save_paper_figure(
   historical_figures_list$performance,
@@ -1009,11 +1146,11 @@ Figure 4 compares offensive and defensive EPA and success rates across the histo
 historical_figures_list$performance
 ```
 
-# Save and check the results
+# Save the results
 
 ## Save the analysis results
 
-The game results, season comparisons, and checks of game scores are saved for use with the manuscript.
+The following chunk saves the input information and result bundles as RDS files, and the score comparisons and analysis results as CSV files in `data/derived/`.
 
 ```{r}
 #| label: export-analysis
@@ -1062,9 +1199,9 @@ iwalk(analysis_exports_list, function(df_data, name) {
 })
 ```
 
-## Save the figures and Table 1
+## Export Table 1
 
-The figures shown above are saved as PNG images for the manuscript. Table 1 is saved as an image and a Word document. The Melbourne travel figure is maintained separately.
+The statistical figures were saved as PNGs in their results sections. The following chunk exports the displayed Table 1 as a PNG and a Word document. The Melbourne travel figure is maintained separately.
 
 ```{r}
 #| label: export-context-table
