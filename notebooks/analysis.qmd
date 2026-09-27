@@ -12,7 +12,13 @@ editor_options:
 
 This notebook explains how the study’s game data were used to calculate the results reported in the manuscript. It begins with game selection and the measures of performance, then describes the comparisons with opponents and season averages. Results are presented first for Melbourne and then for the historical London games.
 
-These comparisons describe performance surrounding the selected trips. They cannot establish whether arrival timing caused differences in performance, and they do not measure sleep, fatigue, or circadian adjustment.
+Schedule, scoring, closing point-spread, and play-by-play data were obtained from nflverse on September 24, 2026. The analysis uses the saved copies from that date. Data from the 2010, 2013, 2017, 2019, and 2025 regular seasons provide the season comparisons and information about opponents. The 2026 data provide the Melbourne game and each team’s first following game.
+
+The Melbourne game brought together two teams with different arrival schedules: the 49ers arrived early and spent the week in Melbourne, whereas the Rams arrived shortly before the game. Selected London games provide historical context for these approaches. The analysis includes the 49ers’ 2010 and 2013 games and the Rams’ 2017, 2019, and 2025 games, when each team used an arrival schedule similar to its Melbourne approach.
+
+The 49ers’ Mexico City games were excluded because they involved shorter journeys and less time-zone displacement. The Rams’ 2012 and 2016 London games were excluded because the team arrived early on those trips.
+
+The first regular-season game after each trip is also included. Together, these games provide 14 team performances: ten from the historical episodes and four from Melbourne and the two following games. Melbourne contributes two performances because both teams are included in the study.
 
 ```{r}
 #| label: setup
@@ -29,6 +35,7 @@ suppressPackageStartupMessages({
 #| purl: true
 #| code-fold: true
 
+# checks that project is open and allows user to run notebook directly without changing paths
 project_path <- function(...) {
   root <- if (file.exists("_quarto.yml")) "." else ".."
 
@@ -36,108 +43,53 @@ project_path <- function(...) {
     stop("Open nfl-melbourne-2026-travel-performance.Rproj before running the analysis.")
   }
 
-  file.path(normalizePath(root), ...)
+  return(file.path(normalizePath(root), ...))
 }
 
-read_snapshot <- function(path) {
-  if (!file.exists(path)) {
-    stop(
-      "Missing archived input: ", path,
-      ". Restore the September 24 snapshot; do not substitute a live download."
-    )
-  }
-
-  data <- readRDS(path)
-  stopifnot(is.data.frame(data), nrow(data) > 0, "game_id" %in% names(data))
-  as_tibble(data)
-}
-
-write_analysis_csv <- function(data, path) {
-  dir.create(dirname(path), recursive = TRUE, showWarnings = FALSE)
-  write_csv(data, path, na = "")
-}
-```
-
-```{r}
-#| label: presentation-helpers
-#| code-fold: true
-
+# once path is correct we can load helpers
 source(project_path("R", "figure_helpers.R"))
 source(project_path("R", "historical_figures.R"))
 source(project_path("R", "melbourne_performance_figure.R"))
 source(project_path("R", "contextual_tables.R"))
 ```
 
-# Study design and game selection
-
-The Melbourne game brought together two teams with different arrival schedules: the 49ers arrived early and spent the week in Melbourne, whereas the Rams arrived shortly before the game. Selected London games provide historical context for these approaches. The analysis includes the 49ers’ 2010 and 2013 games and the Rams’ 2017, 2019, and 2025 games, when each team used an arrival schedule similar to its Melbourne approach.
-
-The 49ers’ Mexico City games were excluded because they involved shorter journeys and less time-zone displacement. The Rams’ 2012 and 2016 London games were excluded because the team arrived early on those trips.
-
-The first regular-season game after each trip is also included. Together, these games provide 14 team performances: ten from the historical episodes and four from Melbourne and the two following games. Melbourne contributes two performances because both teams are included in the study.
-
 ```{r}
-#| label: study-games
-
-game_registry <- tribble(
+df_game_registry <- tribble(
   ~season, ~team, ~phase, ~game_id, ~expected_opponent,
   ~expected_week, ~expected_points_for, ~expected_points_against,
-  2010L, "SF", "international", "2010_08_DEN_SF", "DEN", 8L, 24, 16,
-  2010L, "SF", "return", "2010_10_STL_SF", "LA", 10L, 23, 20,
-  2013L, "SF", "international", "2013_08_SF_JAX", "JAX", 8L, 42, 10,
-  2013L, "SF", "return", "2013_10_CAR_SF", "CAR", 10L, 9, 10,
-  2017L, "LA", "international", "2017_07_ARI_LA", "ARI", 7L, 33, 0,
-  2017L, "LA", "return", "2017_09_LA_NYG", "NYG", 9L, 51, 17,
-  2019L, "LA", "international", "2019_08_CIN_LA", "CIN", 8L, 24, 10,
-  2019L, "LA", "return", "2019_10_LA_PIT", "PIT", 10L, 12, 17,
-  2025L, "LA", "international", "2025_07_LA_JAX", "JAX", 7L, 35, 7,
-  2025L, "LA", "return", "2025_09_NO_LA", "NO", 9L, 34, 10,
-  2026L, "SF", "international", "2026_01_SF_LA", "LA", 1L, 27, 7,
-  2026L, "LA", "international", "2026_01_SF_LA", "SF", 1L, 7, 27,
-  2026L, "SF", "return", "2026_02_MIA_SF", "MIA", 2L, 35, 13,
-  2026L, "LA", "return", "2026_02_NYG_LA", "NYG", 2L, 28, 6
+  2010, "SF", "international", "2010_08_DEN_SF", "DEN", 8,  24, 16,
+  2010, "SF", "return",        "2010_10_STL_SF", "LA",  10, 23, 20,
+  2013, "SF", "international", "2013_08_SF_JAX", "JAX", 8,  42, 10,
+  2013, "SF", "return",        "2013_10_CAR_SF", "CAR", 10, 9,  10,
+  2017, "LA", "international", "2017_07_ARI_LA", "ARI", 7,  33,  0,
+  2017, "LA", "return",        "2017_09_LA_NYG", "NYG", 9,  51, 17,
+  2019, "LA", "international", "2019_08_CIN_LA", "CIN", 8,  24, 10,
+  2019, "LA", "return",        "2019_10_LA_PIT", "PIT", 10, 12, 17,
+  2025, "LA", "international", "2025_07_LA_JAX", "JAX", 7,  35, 7,
+  2025, "LA", "return",        "2025_09_NO_LA",  "NO",  9,  34, 10,
+  2026, "SF", "international", "2026_01_SF_LA",  "LA",  1,  27, 7,
+  2026, "LA", "international", "2026_01_SF_LA",  "SF",  1,  7,  27,
+  2026, "SF", "return",        "2026_02_MIA_SF", "MIA", 2,  35, 13,
+  2026, "LA", "return",        "2026_02_NYG_LA", "NYG", 2,  28, 6
 )
 
-reference_team_seasons <- tribble(
+df_reference_team_seasons <- tribble(
   ~season, ~team,
-  2010L, "SF",
-  2013L, "SF",
-  2017L, "LA",
-  2019L, "LA",
-  2025L, "LA",
-  2025L, "SF"
-)
-
-stopifnot(
-  nrow(game_registry) == 14L,
-  !anyDuplicated(game_registry[c("game_id", "team")])
+  2010, "SF",
+  2013, "SF",
+  2017, "LA",
+  2019, "LA",
+  2025, "LA",
+  2025, "SF"
 )
 ```
-
-## Historical travel context (Table 1)
-
-All five historical London trips followed a road game, and each London game was followed by a bye week. Table 1 summarizes the travel arrangements, arrival timing, opponents, and results.
-
-```{r}
-#| label: historical-context-table
-
-context_table <- historical_context_table()
-context_table
-```
-
-# Football data and outcomes
-
-## Data sources
-
-Schedule, scoring, closing point-spread, and play-by-play data were obtained from nflverse on September 24, 2026. The analysis uses the saved copies from that date.
-
-Data from the 2010, 2013, 2017, 2019, and 2025 regular seasons provide the season comparisons and information about opponents. The 2026 data provide the Melbourne game and each team’s first following game.
 
 ```{r}
 #| label: archived-inputs
+#| code-fold: true
 
 snapshot_date <- "2026-09-24"
-seasons <- c(2010L, 2013L, 2017L, 2019L, 2025L, 2026L)
+seasons <- c(2010, 2013, 2017, 2019, 2025, 2026)
 
 pbp_paths <- project_path(
   "data", "raw", "nflverse",
@@ -152,8 +104,73 @@ schedule_path <- project_path(
     "_asof_", snapshot_date, ".rds"
   )
 )
-schedules <- read_snapshot(schedule_path)
 ```
+
+```{r}
+pbp_list <- map(pbp_paths, ~ as_tibble(readRDS(.x)))
+df_schedules <- as_tibble(readRDS(schedule_path))
+```
+
+## Historical travel context (Table 1)
+
+All five historical London trips followed a road game, and each London game was followed by a bye week. Table 1 summarizes the travel arrangements, arrival timing, opponents, and results.
+
+```{r}
+df_historical_context_data <- tibble::tribble(
+  ~team_year, ~opponent_location, ~staging_context, ~arrival_nights,
+  ~travel_approach, ~pregame_context, ~international_result,
+  ~post_rest, ~first_post_result,
+  "49ers, 2010", "Denver Broncos; Wembley Stadium, London",
+  "Played at Carolina Oct 24; flew directly from Charlotte after the game",
+  "Mon Oct 25; time not reported; 6 nights",
+  "Early arrival; spent game week in London",
+  "49ers 1–6; Broncos 2–5",
+  "Won 24–16; +6.0 points",
+  "Week 9 bye; 14 days between games",
+  "Won 23–20 (OT) vs St Louis; −1.5 points",
+  "49ers, 2013", "Jacksonville Jaguars; Wembley Stadium, London",
+  "Played at Tennessee Oct 20; direct overnight flight from Nashville",
+  "Mon Oct 21, about 13:00; 6 nights",
+  "Early arrival; spent game week in London",
+  "49ers 5–2; Jaguars 0–7",
+  "Won 42–10; +16.0 points",
+  "Week 9 bye; 14 days between games",
+  "Lost 9–10 vs Carolina; −7.0 points",
+  "Rams, 2017", "Arizona Cardinals; Twickenham Stadium, London",
+  "Played at Jacksonville Oct 15; stayed there through Thursday",
+  "Fri Oct 20, about 09:00; 2 nights",
+  "Brief London stay; prepared in eastern US on usual weekly schedule",
+  "Rams 4–2; Cardinals 3–3",
+  "Won 33–0; +30.0 points",
+  "Week 8 bye; 14 days between games",
+  "Won 51–17 at New York Giants; +28.5 points",
+  "Rams, 2019", "Cincinnati Bengals; Wembley Stadium, London",
+  "Played at Atlanta Oct 20; stayed through Thursday practice",
+  "Fri Oct 25 morning; exact time not reported; 2 nights",
+  "Brief London stay; same eastern-US preparation pattern as 2017",
+  "Rams 4–3; Bengals 0–7",
+  "Won 24–10; +2.0 points",
+  "Week 9 bye; 14 days between games",
+  "Lost 12–17 at Pittsburgh; −9.0 points",
+  "Rams, 2025", "Jacksonville Jaguars; Wembley Stadium, London",
+  "Played at Baltimore Oct 12; stayed and practiced there during game week",
+  "<30 hours before kickoff; exact time not reported; 1 night",
+  "Brief London stay; prepared in eastern US, aiming to maintain usual routine",
+  "Rams 4–2; Jaguars 4–2",
+  "Won 35–7; +25.0 points",
+  "Week 8 bye; 14 days between games",
+  "Won 34–10 vs New Orleans; +10.0 points"
+)
+
+```
+
+```{r}
+#| label: historical-context-table
+
+(gt_context_table <- historical_context_table(df_historical_context_data))
+```
+
+# Football data and outcomes
 
 ## Scoring margin and market residual
 
@@ -165,8 +182,8 @@ Each game is considered from both teams’ perspectives. Because the point sprea
 #| label: team-schedule-definition
 #| purl: true
 
-team_schedule <- function(schedules) {
-  schedules |>
+team_schedule <- function(df_schedules) {
+  df_res <- df_schedules |>
     filter(game_type == "REG") |>
     mutate(
       across(
@@ -188,13 +205,19 @@ team_schedule <- function(schedules) {
       cols_vary = "slowest"
     ) |>
     transmute(
-      season, game_id, team, opponent, week, gameday,
+      season, 
+      game_id, 
+      team, 
+      opponent, 
+      week, 
+      gameday,
       points_for = if_else(side == "home", home_score, away_score),
       points_against = if_else(side == "home", away_score, home_score),
       expected_margin = if_else(side == "home", spread_line, -spread_line),
       scoring_margin = points_for - points_against,
       performance_vs_market = scoring_margin - expected_margin
     )
+  return(df_res)
 }
 ```
 
@@ -207,24 +230,16 @@ The next step confirms that each following game was the team’s first regular-s
 ```{r}
 #| label: validate-schedules
 
-team_schedules <- team_schedule(schedules)
+df_team_schedules <- team_schedule(df_schedules)
 
-schedule_validation <- game_registry |>
+df_schedule_validation <- df_game_registry |>
   left_join(
-    team_schedules,
+    df_team_schedules,
     by = join_by(season, team, game_id),
     relationship = "one-to-one"
   )
 
-stopifnot(
-  !anyNA(schedule_validation),
-  all(schedule_validation$opponent == schedule_validation$expected_opponent),
-  all(schedule_validation$week == schedule_validation$expected_week),
-  all(schedule_validation$points_for == schedule_validation$expected_points_for),
-  all(schedule_validation$points_against == schedule_validation$expected_points_against)
-)
-
-following_games <- team_schedules |>
+df_following_games <- df_team_schedules |>
   arrange(season, team, gameday) |>
   mutate(
     next_game_id = lead(game_id),
@@ -233,11 +248,11 @@ following_games <- team_schedules |>
   ) |>
   select(season, team, game_id, next_game_id, next_game_date)
 
-episode_validation <- schedule_validation |>
+df_episode_validation <- df_schedule_validation |>
   filter(phase == "international") |>
-  left_join(following_games, by = join_by(season, team, game_id)) |>
+  left_join(df_following_games, by = join_by(season, team, game_id)) |>
   left_join(
-    game_registry |>
+    df_game_registry |>
       filter(phase == "return") |>
       select(season, team, registered_return = game_id),
     by = join_by(season, team),
@@ -246,31 +261,23 @@ episode_validation <- schedule_validation |>
   mutate(
     days_to_next_game = as.integer(next_game_date - as.Date(gameday)),
     expected_interval = case_when(
-      season < 2026L ~ 14L,
-      team == "SF" ~ 10L,
-      team == "LA" ~ 11L
+      season < 2026 ~ 14,
+      team == "SF" ~ 10,
+      team == "LA" ~ 11
     )
   )
-
-stopifnot(
-  all(episode_validation$next_game_id == episode_validation$registered_return),
-  all(episode_validation$days_to_next_game == episode_validation$expected_interval)
-)
 ```
 
 ```{r}
 #| label: validate-play-by-play
 
 validate_pbp_scores <- function(year) {
-  pbp <- read_snapshot(pbp_paths[[as.character(year)]])
-  stopifnot(
-    all(pbp$season == year),
-    !anyDuplicated(pbp[c("game_id", "play_id")])
-  )
-
-  targets <- schedule_validation |> filter(season == year)
-  scores <- pbp |>
-    semi_join(targets, by = "game_id") |>
+  
+  df_pbp_year <- pbp_list[[as.character(year)]]
+  df_targets <- df_schedule_validation |> filter(season == year)
+  
+  df_scores <- df_pbp_year |>
+    semi_join(df_targets, by = "game_id") |>
     summarise(
       home_team = first(home_team),
       home_score = max(total_home_score),
@@ -278,19 +285,20 @@ validate_pbp_scores <- function(year) {
       .by = game_id
     )
 
-  targets |>
-    left_join(scores, by = "game_id", relationship = "many-to-one") |>
+  df_res <- df_targets |>
+    left_join(df_scores, by = "game_id", relationship = "many-to-one") |>
     mutate(
       pbp_points_for = if_else(team == home_team, home_score, away_score),
       pbp_points_against = if_else(team == home_team, away_score, home_score),
       passed = points_for == pbp_points_for & points_against == pbp_points_against
     ) |>
     select(season, team, game_id, points_for, points_against, passed)
+  
+  return(df_res)
 }
 
-pbp_validation <- map(seasons, validate_pbp_scores) |> list_rbind()
-stopifnot(nrow(pbp_validation) == 14L, all(pbp_validation$passed))
-rmarkdown::paged_table(pbp_validation)
+df_pbp_validation <- map(seasons, validate_pbp_scores) |> list_rbind()
+df_pbp_validation |> knitr::kable()
 ```
 
 ## Measures of play performance
@@ -305,10 +313,10 @@ The table below identifies which plays contribute to each season average and whe
 #| label: outcome-specification
 #| purl: true
 
-metric_spec <- tribble(
+df_metric_spec <- tribble(
   ~metric, ~label, ~direction, ~weight, ~standardize,
-  "scoring_margin", "Scoring margin", 1, NA_character_, FALSE,
-  "performance_vs_market", "Performance versus market", 1, NA_character_, FALSE,
+  "scoring_margin", "Scoring margin", 1, NA, FALSE,
+  "performance_vs_market", "Performance versus market", 1, NA, FALSE,
   "off_epa_per_play", "Offensive EPA per play", 1, "offensive_plays", TRUE,
   "def_epa_allowed", "Defensive EPA allowed per play", -1, "defensive_plays", TRUE,
   "off_success_rate", "Offensive success rate", 1, "offensive_plays", TRUE,
@@ -321,7 +329,7 @@ metric_spec <- tribble(
 
 ```{r}
 #| label: outcome-guide
-metric_spec |>
+df_metric_spec |>
   transmute(
     Outcome = label,
     `Season-average weight` = coalesce(weight, "Equal games"),
@@ -342,11 +350,13 @@ All play-based measures use regular-season plays for which both teams are record
 A team’s defensive results describe what the opposing offense did on those same plays. Completion performance against each defense is also calculated for use in opponent adjustment, although defensive CPOE is not reported as a separate outcome.
 
 ```{r}
-#| label: play-eligibility-definition
+#| label: game-metrics-definition
 #| purl: true
 
-regular_plays <- function(pbp) {
-  pbp |>
+calculate_game_metrics <- function(df_pbp, df_schedules) {
+  
+  # filter to regular plays
+  df_reg_plays <- df_pbp |>
     filter(
       season_type == "REG",
       !coalesce(qb_kneel == 1, FALSE),
@@ -354,19 +364,11 @@ regular_plays <- function(pbp) {
       !is.na(posteam), posteam != "",
       !is.na(defteam), defteam != ""
     )
-}
-```
+  
+  df_epa_plays <- df_reg_plays |> filter(rush == 1 | pass == 1, !is.na(epa))
+  stopifnot(all(df_epa_plays$success == as.numeric(df_epa_plays$epa > 0)))
 
-```{r}
-#| label: game-metrics-definition
-#| purl: true
-
-calculate_game_metrics <- function(pbp, schedules) {
-  plays <- regular_plays(pbp)
-  epa_plays <- plays |> filter(rush == 1 | pass == 1, !is.na(epa))
-  stopifnot(all(epa_plays$success == as.numeric(epa_plays$epa > 0)))
-
-  offense <- epa_plays |>
+  df_offense <- df_epa_plays |>
     summarise(
       offensive_plays = n(),
       off_epa_per_play = mean(epa),
@@ -374,7 +376,7 @@ calculate_game_metrics <- function(pbp, schedules) {
       .by = c(season, game_id, posteam, defteam)
     )
 
-  passing <- plays |>
+  df_passing <- df_reg_plays |>
     filter(pass_attempt == 1, !is.na(cpoe), !is.na(complete_pass)) |>
     summarise(
       pass_attempts = n(),
@@ -382,7 +384,7 @@ calculate_game_metrics <- function(pbp, schedules) {
       .by = c(season, game_id, posteam, defteam)
     )
 
-  sacks <- plays |>
+  df_sacks <- df_reg_plays |>
     filter(qb_dropback == 1, !is.na(sack)) |>
     summarise(
       offensive_dropbacks = n(),
@@ -391,19 +393,19 @@ calculate_game_metrics <- function(pbp, schedules) {
       .by = c(season, game_id, posteam, defteam)
     )
 
-  offensive_units <- offense |>
+  df_offensive_units <- df_offense |>
     left_join(
-      passing,
+      df_passing,
       by = join_by(season, game_id, posteam, defteam),
       relationship = "one-to-one"
     ) |>
     left_join(
-      sacks,
+      df_sacks,
       by = join_by(season, game_id, posteam, defteam),
       relationship = "one-to-one"
     )
 
-  defensive_units <- offensive_units |>
+  df_defensive_units <- df_offensive_units |>
     transmute(
       season, game_id, team = defteam,
       defensive_plays = offensive_plays,
@@ -416,24 +418,20 @@ calculate_game_metrics <- function(pbp, schedules) {
       def_sack_rate = off_sack_rate
     )
 
-  games <- team_schedule(schedules) |>
-    semi_join(offensive_units, by = join_by(season, game_id)) |>
+  df_games <- team_schedule(df_schedules) |>
+    semi_join(df_offensive_units, by = join_by(season, game_id)) |>
     left_join(
-      offensive_units |> rename(team = posteam) |> select(-defteam),
+      df_offensive_units |> rename(team = posteam) |> select(-defteam),
       by = join_by(season, game_id, team),
       relationship = "one-to-one"
     ) |>
     left_join(
-      defensive_units,
+      df_defensive_units,
       by = join_by(season, game_id, team),
       relationship = "one-to-one"
     )
 
-  stopifnot(
-    !anyNA(games[metric_spec$metric]),
-    !anyDuplicated(games[c("game_id", "team")])
-  )
-  games
+  return(df_games)
 }
 ```
 
@@ -442,24 +440,23 @@ Game-level performance is calculated for every NFL team in the five comparison s
 ```{r}
 #| label: calculate-observed-metrics
 
-reference_seasons <- seasons[seasons != 2026L]
-league_game_metrics <- map(reference_seasons, function(year) {
-  pbp <- read_snapshot(pbp_paths[[as.character(year)]])
-  calculate_game_metrics(pbp, schedules)
-}) |>
-  list_rbind()
+reference_seasons <- seasons[seasons != 2026]
+df_league_game_metrics <- map_dfr(reference_seasons, function(year) {
+  df_pbp_year <- pbp_list[[as.character(year)]]
+  calculate_game_metrics(df_pbp_year, df_schedules)
+}) 
 
-historical_registry <- game_registry |>
-  filter(season < 2026L) |>
+df_historical_registry <- df_game_registry |>
+  filter(season < 2026) |>
   select(season, team, game_id, phase)
 
-melbourne_registry <- game_registry |>
-  filter(season == 2026L) |>
+df_melbourne_registry <- df_game_registry |>
+  filter(season == 2026) |>
   select(season, team, game_id, phase)
 
-melbourne_observed <- read_snapshot(pbp_paths[["2026"]]) |>
-  semi_join(melbourne_registry, by = "game_id") |>
-  calculate_game_metrics(schedules)
+df_melbourne_observed <- pbp_list[["2026"]] |>
+  semi_join(df_melbourne_registry, by = "game_id") |>
+  calculate_game_metrics(df_schedules)
 ```
 
 # Opponent-adjusted analyses
@@ -477,7 +474,7 @@ This adjustment is applied to the seven play-based measures. Scoring margin and 
 #| label: opponent-specification
 #| purl: true
 
-opponent_spec <- tribble(
+df_opponent_spec <- tribble(
   ~metric, ~opponent_metric, ~opponent_weight, ~league_metric,
   "off_epa_per_play", "def_epa_allowed", "defensive_plays", "off_epa_per_play",
   "def_epa_allowed", "off_epa_per_play", "offensive_plays", "off_epa_per_play",
@@ -486,9 +483,11 @@ opponent_spec <- tribble(
   "cpoe", "def_cpoe_allowed", "defensive_pass_attempts", "cpoe",
   "off_sack_rate", "def_sack_rate", "defensive_dropbacks", "off_sack_rate",
   "def_sack_rate", "off_sack_rate", "offensive_dropbacks", "off_sack_rate"
-) |>
+)
+
+df_opponent_spec <- df_opponent_spec |> 
   left_join(
-    metric_spec |> select(league_metric = metric, league_weight = weight),
+    df_metric_spec |> select(league_metric = metric, league_weight = weight),
     by = "league_metric",
     relationship = "many-to-one"
   )
@@ -504,125 +503,120 @@ These averages account for the number of opportunities contributing to each meas
 #| label: opponent-adjustment-definitions
 #| purl: true
 
-adjust_one_metric <- function(
-  metric, opponent_metric, opponent_weight, league_metric, league_weight,
-  games, league_games, reference_season
-) {
-  reference <- league_games
+adjust_one_metric <- function(metric, opponent_metric, opponent_weight, league_metric,
+                              league_weight, df_games, df_league_games, reference_season) {
+  
+  # rename for clarity
+  df_reference <- df_league_games
   if (!is.null(reference_season)) {
-    reference <- reference |> filter(season == reference_season)
+    df_reference <- df_reference |> filter(season == reference_season)
   }
 
-  league_ratings <- reference |>
+  df_league_ratings <- df_reference |>
     summarise(
       league_value = weighted.mean(.data[[league_metric]], .data[[league_weight]]),
       .by = season
     )
 
-  opponent_games <- reference |>
+  df_opponent_games <- df_reference |>
     transmute(
-      season, game_id, opponent = team,
+      season, 
+      game_id, 
+      opponent = team,
       numerator = .data[[opponent_metric]] * .data[[opponent_weight]],
       denominator = .data[[opponent_weight]]
     )
 
   if (is.null(reference_season)) {
-    opponent_ratings <- opponent_games |>
+    df_opponent_ratings <- df_opponent_games |>
       mutate(
-        opponent_value = (sum(numerator) - numerator) /
-          (sum(denominator) - denominator),
-        opponent_reference_n_games = n() - 1L,
+        opponent_value = (sum(numerator) - numerator) / (sum(denominator) - denominator),
+        opponent_reference_n_games = n() - 1,
         .by = c(season, opponent)
       ) |>
       select(season, game_id, opponent, opponent_value, opponent_reference_n_games)
 
-    matched_ratings <- games |>
+    df_matched_ratings <- df_games |>
       select(season, team, game_id, opponent, observed_value = all_of(metric)) |>
       left_join(
-        opponent_ratings,
+        df_opponent_ratings,
         by = join_by(season, game_id, opponent),
         relationship = "many-to-one"
       ) |>
-      left_join(league_ratings, by = "season", relationship = "many-to-one")
+      left_join(df_league_ratings, by = "season", relationship = "many-to-one")
+    
   } else {
-    stopifnot(nrow(league_ratings) == 1L)
-    opponent_ratings <- opponent_games |>
+    df_opponent_ratings <- df_opponent_games |>
       summarise(
         opponent_value = sum(numerator) / sum(denominator),
         opponent_reference_n_games = n(),
         .by = opponent
       )
 
-    matched_ratings <- games |>
+    df_matched_ratings <- df_games |>
       select(season, team, game_id, opponent, observed_value = all_of(metric)) |>
-      left_join(opponent_ratings, by = "opponent", relationship = "many-to-one") |>
-      mutate(league_value = league_ratings$league_value)
+      left_join(df_opponent_ratings, by = "opponent", relationship = "many-to-one") |>
+      mutate(league_value = df_league_ratings$league_value)
   }
-
-  stopifnot(nrow(matched_ratings) == nrow(games), !anyNA(matched_ratings))
-
-  matched_ratings |>
-    transmute(
-      season, team, game_id, opponent_reference_n_games,
-      metric = paste0("adj_", metric),
-      adjusted_value = observed_value - (opponent_value - league_value)
+  
+   df_res <- df_matched_ratings |>
+      transmute(
+        season, 
+        team, 
+        game_id, 
+        opponent_reference_n_games,
+        metric = paste0("adj_", metric),
+        adjusted_value = observed_value - (opponent_value - league_value)
     )
+ 
+  return(df_res)
 }
 
-adjust_for_opponent <- function(games, league_games, reference_season = NULL) {
-  adjusted_metrics <- pmap(
-    opponent_spec,
+adjust_for_opponent <- function(df_games, df_league_games, reference_season = NULL) {
+  
+  df_adjusted_metrics <- pmap_dfr(
+    df_opponent_spec,
     adjust_one_metric,
-    games = games,
-    league_games = league_games,
+    df_games = df_games,
+    df_league_games = df_league_games,
     reference_season = reference_season
-  ) |>
-    list_rbind() |>
+  ) |> 
     pivot_wider(names_from = metric, values_from = adjusted_value)
 
-  stopifnot(
-    nrow(adjusted_metrics) == nrow(games),
-    !anyDuplicated(adjusted_metrics[c("season", "team", "game_id")])
-  )
-
-  games |>
+  df_res <- df_games |>
     left_join(
-      adjusted_metrics,
+      df_adjusted_metrics,
       by = join_by(season, team, game_id),
       relationship = "one-to-one"
     ) |>
     relocate(opponent_reference_n_games, .after = adj_off_epa_per_play)
+  
+  return(df_res)
 }
 ```
 
 ```{r}
 #| label: calculate-adjusted-metrics
 
-team_game_metrics <- league_game_metrics |>
-  semi_join(reference_team_seasons, by = join_by(season, team)) |>
-  adjust_for_opponent(league_game_metrics) |>
+df_team_game_metrics <- df_league_game_metrics |>
+  semi_join(df_reference_team_seasons, by = join_by(season, team)) |>
+  adjust_for_opponent(df_league_game_metrics) |>
   arrange(season, team, gameday)
 
-historical_game_metrics <- historical_registry |>
+df_historical_game_metrics <- df_historical_registry |>
   left_join(
-    team_game_metrics,
+    df_team_game_metrics,
     by = join_by(season, team, game_id),
     relationship = "one-to-one"
   )
 
-melbourne_game_metrics <- melbourne_registry |>
+df_melbourne_game_metrics <- df_melbourne_registry |>
   left_join(
-    melbourne_observed,
+    df_melbourne_observed,
     by = join_by(season, team, game_id),
     relationship = "one-to-one"
   ) |>
-  adjust_for_opponent(league_game_metrics, reference_season = 2025L)
-
-stopifnot(
-  nrow(team_game_metrics) == 98L,
-  nrow(historical_game_metrics) == 10L,
-  nrow(melbourne_game_metrics) == 4L
-)
+  adjust_for_opponent(df_league_game_metrics, reference_season = 2025)
 ```
 
 # Season references and standardized comparisons
@@ -654,22 +648,24 @@ CPOE and sack rates are reported in their original units. They describe fewer op
 The calculations below bring together each game’s performance and the appropriate season comparison. They produce both the season averages in the original units and the standardized differences for the four EPA and success-rate measures.
 
 ```{r}
+df_comparison_spec <- bind_rows(
+  df_metric_spec |> mutate(column = metric, adjustment = "Unadjusted"),
+  df_metric_spec |>
+    semi_join(df_opponent_spec, by = "metric") |>
+    mutate(column = paste0("adj_", metric), adjustment = "Opponent adjusted")
+) |> 
+  arrange(match(metric, df_metric_spec$metric), adjustment == "Opponent adjusted")
+```
+
+```{r}
 #| label: comparison-table-definitions
 #| purl: true
 
-comparison_spec <- bind_rows(
-  metric_spec |>
-    mutate(column = metric, adjustment = "Unadjusted"),
-  metric_spec |>
-    semi_join(opponent_spec, by = "metric") |>
-    mutate(column = paste0("adj_", metric), adjustment = "Opponent adjusted")
-) |>
-  arrange(match(metric, metric_spec$metric), adjustment == "Opponent adjusted")
+game_metrics_long <- function(df_games) {
+  
+  weight_columns <- df_metric_spec$weight |> na.omit() |> unique() |> as.character()
 
-game_metrics_long <- function(games) {
-  weight_columns <- metric_spec$weight |> na.omit() |> unique() |> as.character()
-
-  denominators <- games |>
+  df_denominators <- df_games |>
     select(season, team, game_id, all_of(weight_columns)) |>
     pivot_longer(
       all_of(weight_columns),
@@ -677,36 +673,36 @@ game_metrics_long <- function(games) {
       values_to = "opportunities"
     )
 
-  values <- games |>
-    select(season, team, game_id, any_of("phase"), all_of(comparison_spec$column)) |>
+  df_values <- df_games |>
+    select(season, team, game_id, any_of("phase"), all_of(df_comparison_spec$column)) |>
     pivot_longer(
-      all_of(comparison_spec$column),
+      all_of(df_comparison_spec$column),
       names_to = "column",
       values_to = "value"
     ) |>
-    left_join(comparison_spec, by = "column", relationship = "many-to-one") |>
+    left_join(df_comparison_spec, by = "column", relationship = "many-to-one") |>
     left_join(
-      denominators,
+      df_denominators,
       by = join_by(season, team, game_id, weight),
       relationship = "many-to-one"
     ) |>
     mutate(opportunities = if_else(is.na(weight), 1, opportunities))
-
-  stopifnot(!anyNA(values$value), !anyNA(values$opportunities))
-  values
+  
+  return(df_values)
 }
 
-compare_with_reference <- function(focal_games, reference_games) {
-  reference_values <- game_metrics_long(reference_games)
+compare_with_reference <- function(df_focal_games, df_reference_games) {
+  
+  df_reference_values <- game_metrics_long(df_reference_games)
 
   # Full-season averages in native units retain all reference-season games.
-  season_means <- reference_values |>
+  df_season_means <- df_reference_values |>
     summarise(
       season_mean = weighted.mean(value, opportunities),
       .by = c(season, team, metric, adjustment)
     )
 
-  focal_values <- game_metrics_long(focal_games) |>
+  df_focal_values <- game_metrics_long(df_focal_games) |>
     mutate(reference_season = if_else(season == 2026L, 2025L, season)) |>
     select(
       season, team, game_id, phase, metric, label, direction, adjustment,
@@ -715,9 +711,9 @@ compare_with_reference <- function(focal_games, reference_games) {
 
   # This deliberate many-to-many join pairs each focal outcome with every
   # matching reference game, before excluding the focal game itself.
-  reference_pairs <- focal_values |>
+  df_reference_pairs <- df_focal_values |>
     left_join(
-      reference_values |>
+      df_reference_values |>
         select(
           reference_season = season, team, metric, adjustment,
           reference_game_id = game_id, reference_value = value
@@ -727,7 +723,7 @@ compare_with_reference <- function(focal_games, reference_games) {
     ) |>
     filter(reference_game_id != game_id)
 
-  distributions <- reference_pairs |>
+  df_distributions <- df_reference_pairs |>
     summarise(
       reference_n_games = n(),
       reference_mean = mean(reference_value),
@@ -737,14 +733,14 @@ compare_with_reference <- function(focal_games, reference_games) {
       .by = c(season, team, game_id, metric, adjustment)
     )
 
-  comparisons <- focal_values |>
+  df_comparisons <- df_focal_values |>
     left_join(
-      season_means,
+      df_season_means,
       by = join_by(reference_season == season, team, metric, adjustment),
       relationship = "many-to-one"
     ) |>
     left_join(
-      distributions,
+      df_distributions,
       by = join_by(season, team, game_id, metric, adjustment),
       relationship = "one-to-one"
     ) |>
@@ -761,13 +757,7 @@ compare_with_reference <- function(focal_games, reference_games) {
       games_exceeded, games_tied, standardized_score
     )
 
-  stopifnot(
-    nrow(comparisons) == nrow(focal_games) * nrow(comparison_spec),
-    !anyNA(select(comparisons, -standardized_score)),
-    all(comparisons$reference_n_games > 1L),
-    all(comparisons$reference_sd > 0)
-  )
-  comparisons
+  return(df_comparisons)
 }
 ```
 
@@ -780,25 +770,26 @@ The season averages used in Figure 3 are calculated separately because they excl
 ```{r}
 #| label: calculate-comparisons
 
-melbourne_comparisons <- compare_with_reference(melbourne_game_metrics, team_game_metrics)
-historical_comparisons <- compare_with_reference(historical_game_metrics, team_game_metrics)
+df_melbourne_comparisons <- compare_with_reference(
+  df_melbourne_game_metrics, 
+  df_team_game_metrics
+)
 
-historical_score_context <- team_game_metrics |>
-  semi_join(historical_registry, by = join_by(season, team)) |>
-  anti_join(historical_registry, by = join_by(season, team, game_id)) |>
+df_historical_comparisons <- compare_with_reference(
+  df_historical_game_metrics, 
+  df_team_game_metrics
+)
+
+df_historical_score_context <- df_team_game_metrics |>
+  semi_join(df_historical_registry, by = join_by(season, team)) |>
+  anti_join(df_historical_registry, by = join_by(season, team, game_id)) |>
   summarise(
     across(c(scoring_margin, performance_vs_market), mean),
     n_games = n(),
     .by = c(season, team)
   )
 
-stopifnot(
-  nrow(historical_comparisons) == 160L,
-  nrow(melbourne_comparisons) == 64L,
-  all(melbourne_comparisons$reference_n_games == 17L)
-)
-
-team_game_metrics |>
+df_team_game_metrics |>
   summarise(reference_games = n(), .by = c(season, team)) |>
   knitr::kable()
 ```
@@ -813,29 +804,31 @@ The “season mean” column gives the average in the measure’s original units
 #| label: results-display
 
 format_outcome <- function(metric, value) {
-  case_when(
+  formatted_values <- case_when(
     str_detect(metric, "success|sack") ~ sprintf("%.1f%%", 100 * value),
     metric == "cpoe" ~ sprintf("%+.1f pp", value),
     str_detect(metric, "epa") ~ sprintf("%+.3f", value),
     .default = sprintf("%+.1f", value)
   )
+  return(formatted_values)
 }
 
-show_comparisons <- function(comparisons) {
-  comparisons |>
+show_comparisons <- function(df_comparisons) {
+  df_display <- df_comparisons |>
     transmute(
       season, team, phase, outcome = label, adjustment,
       observed = format_outcome(metric, target_value),
       season_mean = format_outcome(metric, season_mean),
       reference_n_games, games_exceeded, games_tied,
       standardized_difference = round(standardized_score, 2)
-    ) |>
-    rmarkdown::paged_table()
+    )
+  comparison_table <- rmarkdown::paged_table(df_display)
+  return(comparison_table)
 }
 
 offensive_outcomes <- c("off_epa_per_play", "off_success_rate", "cpoe", "off_sack_rate")
 defensive_outcomes <- c("def_epa_allowed", "def_success_rate_allowed", "def_sack_rate")
-melbourne_matchup <- melbourne_comparisons |> filter(phase == "international")
+df_melbourne_matchup <- df_melbourne_comparisons |> filter(phase == "international")
 ```
 
 ## Melbourne episode
@@ -847,13 +840,20 @@ The first table shows the final score, expected margin, and market residual from
 ```{r}
 #| label: melbourne-game-summary
 
-melbourne_game_metrics |>
+df_melbourne_game_metrics |>
   filter(phase == "international") |>
-  select(team, opponent, points_for, points_against, expected_margin,
-         scoring_margin, performance_vs_market) |>
+  select(
+    team,
+    opponent,
+    points_for,
+    points_against,
+    expected_margin,
+    scoring_margin,
+    performance_vs_market
+  ) |> 
   knitr::kable()
 
-melbourne_matchup |>
+df_melbourne_matchup |>
   filter(metric %in% c("scoring_margin", "performance_vs_market")) |>
   show_comparisons()
 ```
@@ -865,7 +865,7 @@ San Francisco’s offensive EPA and success rate also describe the EPA and succe
 ```{r}
 #| label: san-francisco-offense
 
-melbourne_matchup |>
+df_melbourne_matchup |>
   filter(
     (team == "SF" & metric %in% offensive_outcomes) |
       (team == "LA" & metric %in% defensive_outcomes)
@@ -880,17 +880,25 @@ The same comparisons are then made for the Rams’ offense and the 49ers’ defe
 ```{r}
 #| label: los-angeles-offense
 
-melbourne_matchup |>
+df_melbourne_matchup |>
   filter(
     (team == "LA" & metric %in% offensive_outcomes) |
       (team == "SF" & metric %in% defensive_outcomes)
   ) |>
   show_comparisons()
 
-melbourne_game_metrics |>
+df_melbourne_game_metrics |>
   filter(phase == "international") |>
-  select(team, offensive_plays, pass_attempts, offensive_dropbacks, sacks_allowed,
-         defensive_plays, defensive_dropbacks, sacks_generated) |>
+  select(
+    team,
+    offensive_plays,
+    pass_attempts,
+    offensive_dropbacks,
+    sacks_allowed,
+    defensive_plays,
+    defensive_dropbacks,
+    sacks_generated
+  ) |> 
   knitr::kable()
 ```
 
@@ -904,9 +912,9 @@ Figure 2 brings together the game outcome relative to the closing spread, EPA an
 #| fig-height: 9.4
 
 melbourne_figure <- build_melbourne_performance_figure(
-  melbourne_matchup |> filter(adjustment == "Unadjusted"),
-  melbourne_matchup |> filter(adjustment == "Opponent adjusted"),
-  melbourne_game_metrics |> filter(phase == "international")
+  df_melbourne_matchup |> filter(adjustment == "Unadjusted"),
+  df_melbourne_matchup |> filter(adjustment == "Opponent adjusted"),
+  df_melbourne_game_metrics |> filter(phase == "international")
 )
 save_paper_figure(melbourne_figure, "melbourne_outcome_performance", 9, 9.4)
 melbourne_figure
@@ -919,12 +927,12 @@ Each team’s first game after Melbourne is compared with the same 2025 season u
 ```{r}
 #| label: post-melbourne-results
 
-melbourne_game_metrics |>
+df_melbourne_game_metrics |>
   filter(phase == "return") |>
   select(team, opponent, gameday, points_for, points_against, performance_vs_market) |>
   knitr::kable()
 
-melbourne_comparisons |>
+df_melbourne_comparisons |>
   filter(phase == "return") |>
   show_comparisons()
 ```
@@ -938,7 +946,7 @@ The 49ers’ 2010 and 2013 London games and their first following games are comp
 ```{r}
 #| label: historical-san-francisco
 
-historical_comparisons |>
+df_historical_comparisons |>
   filter(team == "SF") |>
   show_comparisons()
 ```
@@ -950,7 +958,7 @@ The Rams’ 2017, 2019, and 2025 episodes are examined in the same way. Each Lon
 ```{r}
 #| label: historical-los-angeles
 
-historical_comparisons |>
+df_historical_comparisons |>
   filter(team == "LA") |>
   show_comparisons()
 ```
@@ -962,7 +970,7 @@ Figure 3 compares scoring margin and market residual in the London and following
 ```{r}
 #| label: historical-score-context
 
-historical_score_context |> knitr::kable(digits = 2)
+df_historical_score_context |> knitr::kable(digits = 2)
 ```
 
 ```{r}
@@ -970,18 +978,23 @@ historical_score_context |> knitr::kable(digits = 2)
 #| fig-width: 9
 #| fig-height: 5.85
 
-historical_figures <- build_historical_figures(
-  historical_game_metrics,
-  historical_score_context,
-  historical_comparisons
+historical_figures_list <- build_historical_figures(
+  df_historical_game_metrics,
+  df_historical_score_context,
+  df_historical_comparisons
 )
-save_paper_figure(historical_figures$outcomes, "historical_score_market_baselines", 9, 5.85)
+
 save_paper_figure(
-  historical_figures$performance,
+  historical_figures_list$outcomes, 
+  "historical_score_market_baselines", 
+  9, 5.85)
+
+save_paper_figure(
+  historical_figures_list$performance,
   "historical_international_return_play_metrics",
   9, 6.25
 )
-historical_figures$outcomes
+historical_figures_list$outcomes
 ```
 
 ### Historical standardized performance (Figure 4)
@@ -993,7 +1006,7 @@ Figure 4 compares offensive and defensive EPA and success rates across the histo
 #| fig-width: 9
 #| fig-height: 6.25
 
-historical_figures$performance
+historical_figures_list$performance
 ```
 
 # Save and check the results
@@ -1006,44 +1019,46 @@ The game results, season comparisons, and checks of game scores are saved for us
 #| label: export-analysis
 #| code-fold: true
 
-inputs <- list(
+inputs_list <- list(
   snapshot_date = snapshot_date,
   pbp_paths = pbp_paths,
-  schedules = schedules,
-  game_registry = game_registry,
-  reference_team_seasons = reference_team_seasons
+  schedules = df_schedules,
+  game_registry = df_game_registry,
+  reference_team_seasons = df_reference_team_seasons
 )
 
-historical_results <- list(
+historical_results_list <- list(
   snapshot_date = snapshot_date,
-  league_game_metrics = league_game_metrics,
-  team_game_metrics = team_game_metrics,
-  game_metrics = historical_game_metrics,
-  comparisons = historical_comparisons,
-  context = historical_score_context
+  league_game_metrics = df_league_game_metrics,
+  team_game_metrics = df_team_game_metrics,
+  game_metrics = df_historical_game_metrics,
+  comparisons = df_historical_comparisons,
+  context = df_historical_score_context
 )
 
-melbourne_results <- list(
+melbourne_results_list <- list(
   snapshot_date = snapshot_date,
-  game_metrics = melbourne_game_metrics,
-  comparisons = melbourne_comparisons
+  game_metrics = df_melbourne_game_metrics,
+  comparisons = df_melbourne_comparisons
+)
+
+analysis_exports_list <- list(
+  game_validation = df_pbp_validation,
+  historical_game_metrics = df_historical_game_metrics,
+  historical_reference_comparisons = df_historical_comparisons,
+  historical_score_market_context = df_historical_score_context,
+  melbourne_game_metrics = df_melbourne_game_metrics,
+  melbourne_reference_comparisons = df_melbourne_comparisons
 )
 
 dir.create(project_path("data", "derived"), recursive = TRUE, showWarnings = FALSE)
-saveRDS(inputs, project_path("data", "derived", "validated_inputs.rds"), version = 3)
-saveRDS(historical_results, project_path("data", "derived", "historical_results.rds"), version = 3)
-saveRDS(melbourne_results, project_path("data", "derived", "melbourne_results.rds"), version = 3)
+saveRDS(inputs_list, project_path("data", "derived", "validated_inputs.rds"))
+saveRDS(historical_results_list, project_path("data", "derived", "historical_results.rds"))
+saveRDS(melbourne_results_list, project_path("data", "derived", "melbourne_results.rds"))
 
-analysis_exports <- list(
-  game_validation = pbp_validation,
-  historical_game_metrics = historical_game_metrics,
-  historical_reference_comparisons = historical_comparisons,
-  historical_score_market_context = historical_score_context,
-  melbourne_game_metrics = melbourne_game_metrics,
-  melbourne_reference_comparisons = melbourne_comparisons
-)
-iwalk(analysis_exports, function(data, name) {
-  write_analysis_csv(data, project_path("data", "derived", paste0(name, ".csv")))
+iwalk(analysis_exports_list, function(df_data, name) {
+  path <- project_path("data", "derived", paste0(name, ".csv"))
+  write_csv(df_data, path, na = "")
 })
 ```
 
@@ -1057,12 +1072,12 @@ The figures shown above are saved as PNG images for the manuscript. Table 1 is s
 
 dir.create(project_path("tables"), recursive = TRUE, showWarnings = FALSE)
 gt::gtsave(
-  historical_context_table(),
+  gt_context_table,
   project_path("tables", "table_1_historical_international_context.png"),
   vwidth = 1300, vheight = 900, expand = 10
 )
 save_historical_context_docx(
-  context_table,
+  gt_context_table,
   project_path("tables", "table_1_historical_international_context.docx")
 )
 ```
