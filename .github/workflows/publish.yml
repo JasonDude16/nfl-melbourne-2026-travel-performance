@@ -35,9 +35,19 @@ jobs:
             any::knitr
             any::gt
             any::webshot2
+            any::chromote
             any::patchwork
             any::xml2
           install-quarto: false
+
+      - name: Set up Chrome for table export
+        shell: Rscript {0}
+        run: |
+          chrome <- chromote::chrome_versions_add("latest-stable", "chrome-headless-shell")
+          writeLines(paste0("CHROMOTE_CHROME=", chrome), Sys.getenv("GITHUB_ENV"))
+          Sys.setenv(CHROMOTE_CHROME = chrome)
+          browser <- chromote::ChromoteSession$new()
+          browser$close()
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
