@@ -609,59 +609,6 @@ df_melbourne_observed <- pbp_regular_list[["2026"]] |>
   calculate_game_metrics(df_team_schedules)
 ```
 
-### Play counts
-
-The table shows eligible plays, pass attempts, and dropbacks for each selected team-game. Denominators differ by outcome; missing counts indicate unavailable results or qualifying observations.
-
-```{r}
-#| label: inspect-play-denominators
-#| code-fold: true
-
-df_game_registry |>
-  select(season, team, game_id) |>
-  left_join(
-    bind_rows(df_league_game_metrics, df_melbourne_observed),
-    by = join_by(season, team, game_id),
-    relationship = "one-to-one"
-  ) |>
-  select(
-    season,
-    team,
-    game_id,
-    offensive_plays,
-    defensive_plays,
-    pass_attempts,
-    offensive_dropbacks,
-    defensive_dropbacks
-  ) |> 
-  knitr::kable()
-```
-
-### Success definition
-
-The analysis defines success as EPA above zero. The table counts missing source success indicators and disagreements with that definition among eligible run and pass plays. It covers all loaded seasons; the 2026 row also includes games outside the Melbourne episode.
-
-```{r}
-#| label: inspect-success-definition
-
-df_success_definition <- map_dfr(pbp_regular_list, function(df_reg_plays) {
-  df_reg_plays |>
-    filter(rush == 1 | pass == 1, !is.na(epa)) |>
-    summarise(
-      eligible_plays = n(),
-      missing_success = sum(is.na(success)),
-      differing_success = sum(success != as.numeric(epa > 0), na.rm = TRUE),
-      .by = season
-    )
-})
-```
-
-```{r}
-#| code-fold: true
-
-df_success_definition |> knitr::kable()
-```
-
 # Opponent adjustments
 
 The seven play-based outcomes are adjusted for the opponent’s performance relative to the league:
@@ -740,8 +687,6 @@ $$\text{Standardized difference} =
 
 Direction is +1 when higher values are favorable and −1 when lower values are favorable. Positive standardized differences therefore always indicate better performance. CPOE and sack rates are reported without standardization.
 
-## Calculate comparisons
-
 The following chunks specify the unadjusted and adjusted outcomes, calculate season averages and standardized differences, and count reference games with less favorable or equal performance. Figure 3’s season averages are calculated separately using the exclusions above.
 
 ```{r}
@@ -775,34 +720,6 @@ df_historical_score_context <- df_team_game_metrics |>
     n_games = n(),
     .by = c(season, team)
   )
-```
-
-## Reference-season summary
-
-The table shows the size and date range of each full reference season. `comparison_games` reports the range of game counts used in individual comparisons. The Rams’ 2025 season has a range of 16–17 because it supports both the historical 2025 and Melbourne analyses.
-
-```{r}
-#| label: inspect-reference-seasons
-
-df_reference_counts <- bind_rows(df_historical_comparisons, df_melbourne_comparisons) |>
-  mutate(reference_season = if_else(season == 2026, melbourne_reference_season, season)) |>
-  summarise(
-    comparison_games = paste(min(reference_n_games), max(reference_n_games), sep = "–"),
-    .by = c(reference_season, team)
-  )
-```
-
-```{r}
-#| code-fold: true
-
-df_team_game_metrics |>
-  summarise(
-    season_games = n_distinct(game_id),
-    first_game = min(gameday), last_game = max(gameday),
-    .by = c(season, team)
-  ) |>
-  left_join(df_reference_counts, by = join_by(season == reference_season, team)) |>
-  knitr::kable()
 ```
 
 # Results
