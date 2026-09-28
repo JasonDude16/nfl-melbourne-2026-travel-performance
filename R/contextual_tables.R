@@ -2,57 +2,7 @@
 # maintained in supplement/game_context_report.md; numerical game fields were
 # checked against data/derived/game_validation.csv.
 
-historical_context_data <- function() {
-  tibble::tribble(
-    ~team_year, ~opponent_location, ~staging_context, ~arrival_nights,
-    ~travel_approach, ~pregame_context, ~international_result,
-    ~post_rest, ~first_post_result,
-    "49ers, 2010", "Denver Broncos; Wembley Stadium, London",
-    "Played at Carolina Oct 24; flew directly from Charlotte after the game",
-    "Mon Oct 25; time not reported; 6 nights",
-    "Early arrival; spent game week in London",
-    "49ers 1–6; Broncos 2–5",
-    "Won 24–16; +6.0 points",
-    "Week 9 bye; 14 days between games",
-    "Won 23–20 (OT) vs St Louis; −1.5 points",
-    "49ers, 2013", "Jacksonville Jaguars; Wembley Stadium, London",
-    "Played at Tennessee Oct 20; direct overnight flight from Nashville",
-    "Mon Oct 21, about 13:00; 6 nights",
-    "Early arrival; spent game week in London",
-    "49ers 5–2; Jaguars 0–7",
-    "Won 42–10; +16.0 points",
-    "Week 9 bye; 14 days between games",
-    "Lost 9–10 vs Carolina; −7.0 points",
-    "Rams, 2017", "Arizona Cardinals; Twickenham Stadium, London",
-    "Played at Jacksonville Oct 15; stayed there through Thursday",
-    "Fri Oct 20, about 09:00; 2 nights",
-    "Brief London stay; prepared in eastern US on usual weekly schedule",
-    "Rams 4–2; Cardinals 3–3",
-    "Won 33–0; +30.0 points",
-    "Week 8 bye; 14 days between games",
-    "Won 51–17 at New York Giants; +28.5 points",
-    "Rams, 2019", "Cincinnati Bengals; Wembley Stadium, London",
-    "Played at Atlanta Oct 20; stayed through Thursday practice",
-    "Fri Oct 25 morning; exact time not reported; 2 nights",
-    "Brief London stay; same eastern-US preparation pattern as 2017",
-    "Rams 4–3; Bengals 0–7",
-    "Won 24–10; +2.0 points",
-    "Week 9 bye; 14 days between games",
-    "Lost 12–17 at Pittsburgh; −9.0 points",
-    "Rams, 2025", "Jacksonville Jaguars; Wembley Stadium, London",
-    "Played at Baltimore Oct 12; stayed and practiced there during game week",
-    "<30 hours before kickoff; exact time not reported; 1 night",
-    "Brief London stay; prepared in eastern US, aiming to maintain usual routine",
-    "Rams 4–2; Jaguars 4–2",
-    "Won 35–7; +25.0 points",
-    "Week 8 bye; 14 days between games",
-    "Won 34–10 vs New Orleans; +10.0 points"
-  )
-}
-
-historical_context_table <- function(include_title = FALSE) {
-  data <- historical_context_data()
-
+historical_context_table <- function(data, include_title = FALSE) {
   stopifnot(
     nrow(data) == 5L,
     identical(

@@ -13,3 +13,4 @@ supplement/
 
 # Optional standalone figure PDFs; manuscript PDF output is in _manuscript/.
 /figures/*.pdf
+/outputs/nflverse/

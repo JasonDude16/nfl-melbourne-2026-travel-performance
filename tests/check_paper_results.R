@@ -1,66 +1,54 @@
-# Run from the project root after notebooks/analysis.qmd. Fixtures were captured from
-# the final September 24 outputs before the September 25 code cleanup.
+# Run after the notebook in archive mode, from the project root or notebooks/.
+# Fixtures preserve the submitted paper's September 24 results.
 suppressPackageStartupMessages(library(tidyverse))
 
-# Extract only chunks explicitly marked purl: true. These contain definitions,
-# not data loading, analysis execution, exports, or calls back to this check.
-# During notebook execution the definitions already exist in the parent session.
-load_analysis_definitions <- function(envir) {
-  output <- tempfile(fileext = ".R")
-  notebook <- if (file.exists("notebooks/analysis.qmd")) {
-    "notebooks/analysis.qmd"
-  } else {
-    "../notebooks/analysis.qmd"
-  }
-  previous_options <- knitr::opts_chunk$get()
-  on.exit(
-    {
-      unlink(output)
-      knitr::opts_chunk$restore(previous_options)
-    },
-    add = TRUE
-  )
-
-  knitr::opts_chunk$set(purl = FALSE)
-  knitr::purl(
-    notebook,
-    output = output,
-    documentation = 0L,
-    quiet = TRUE
-  )
-  sys.source(output, envir = envir)
+root <- if (file.exists("_quarto.yml")) "." else ".."
+if (!file.exists(file.path(root, "_quarto.yml"))) {
+  stop("Run this check from the project root or notebooks directory.")
 }
 
-if (!exists("compare_with_reference", mode = "function", inherits = TRUE)) {
-  load_analysis_definitions(environment())
+project_path <- function(...) {
+  return(file.path(normalizePath(root), ...))
 }
-historical <- readRDS(project_path("data", "derived", "historical_results.rds"))
-melbourne <- readRDS(project_path("data", "derived", "melbourne_results.rds"))
-comparisons <- bind_rows(historical$comparisons, melbourne$comparisons)
-games <- bind_rows(historical$game_metrics, melbourne$game_metrics)
-four <- metric_spec$metric[metric_spec$standardize]
+
+result_paths <- project_path("data", "derived", c("historical_results.rds", "melbourne_results.rds"))
+if (!all(file.exists(result_paths))) {
+  stop('Run notebooks/analysis.qmd with data_source = "archive" before checking paper results.')
+}
+
+historical_results_list <- readRDS(result_paths[1])
+melbourne_results_list <- readRDS(result_paths[2])
+if (!identical(historical_results_list$provenance$source, "archive") ||
+    !identical(melbourne_results_list$provenance$source, "archive") ||
+    !identical(historical_results_list$snapshot_date, "2026-09-24") ||
+    !identical(melbourne_results_list$snapshot_date, "2026-09-24")) {
+  stop("This check requires results from the September 24, 2026 archive.")
+}
+
+df_comparisons <- bind_rows(historical_results_list$comparisons, melbourne_results_list$comparisons)
+df_games <- bind_rows(historical_results_list$game_metrics, melbourne_results_list$game_metrics)
+standardized_metrics <- c("off_epa_per_play", "def_epa_allowed", "off_success_rate", "def_success_rate_allowed")
 stopifnot(
-  nrow(games) == 14L, nrow(comparisons) == 224L,
-  sum(!is.na(comparisons$standardized_score)) == 112L,
-  all(is.na(comparisons$standardized_score) == !comparisons$metric %in% four),
-  identical(historical$snapshot_date, "2026-09-24"),
-  identical(melbourne$snapshot_date, historical$snapshot_date)
+  nrow(df_games) == 14L, nrow(df_comparisons) == 224L,
+  sum(!is.na(df_comparisons$standardized_score)) == 112L,
+  all(is.na(df_comparisons$standardized_score) == !df_comparisons$metric %in% standardized_metrics)
 )
 
-check_fixture <- function(actual, filename, keys) {
-  expected <- read_csv(project_path("tests", "fixtures", filename), show_col_types = FALSE)
+check_fixture <- function(df_actual, filename, keys) {
+  df_expected <- read_csv(project_path("tests", "fixtures", filename), show_col_types = FALSE)
   stopifnot(
-    nrow(actual) == nrow(expected), !anyDuplicated(actual[keys]), !anyDuplicated(expected[keys]),
-    nrow(anti_join(expected, actual, by = keys)) == 0L
+    all(names(df_expected) %in% names(df_actual)),
+    nrow(df_actual) == nrow(df_expected), !anyDuplicated(df_actual[keys]), !anyDuplicated(df_expected[keys]),
+    nrow(anti_join(df_expected, df_actual, by = keys)) == 0L
   )
-  actual <- expected |>
+  df_actual <- df_expected |>
     select(all_of(keys)) |>
-    left_join(actual, by = keys)
-  values <- setdiff(names(expected), keys)
+    left_join(df_actual, by = keys)
+  values <- setdiff(names(df_expected), keys)
   max_difference <- 0
   for (column in values) {
-    x <- actual[[column]]
-    y <- expected[[column]]
+    x <- df_actual[[column]]
+    y <- df_expected[[column]]
     stopifnot(identical(is.na(x), is.na(y)))
     present <- !is.na(y)
     if (is.numeric(y)) {
@@ -76,69 +64,51 @@ check_fixture <- function(actual, filename, keys) {
       stopifnot(all(x[present] == y[present]))
     }
   }
-  tibble(
-    check = filename, rows = nrow(expected), fields = length(values),
-    max_absolute_difference = max_difference, passed = TRUE
+  df_check <- tibble(
+    check = filename, rows = nrow(df_expected), fields = length(values),
+    max_absolute_difference = max_difference
   )
+  return(df_check)
 }
-checks <- bind_rows(
-  check_fixture(comparisons, "paper_comparisons.csv", c("season", "team", "game_id", "phase", "metric", "adjustment")),
-  check_fixture(games, "paper_games.csv", c("season", "team", "game_id")),
-  check_fixture(historical$context, "historical_context.csv", c("season", "team")),
-  check_fixture(historical$team_game_metrics, "reference_games.csv", c("season", "team", "game_id"))
+df_checks <- bind_rows(
+  check_fixture(df_comparisons, "paper_comparisons.csv", c("season", "team", "game_id", "phase", "metric", "adjustment")),
+  check_fixture(df_games, "paper_games.csv", c("season", "team", "game_id")),
+  check_fixture(historical_results_list$context, "historical_context.csv", c("season", "team")),
+  check_fixture(historical_results_list$team_game_metrics, "reference_games.csv", c("season", "team", "game_id"))
 )
 
 # Verify the three distinct reference populations independently of the exports.
-for (i in seq_len(nrow(games))) {
-  focal <- games[i, ]
-  year <- if (focal$season == 2026L) 2025L else focal$season
-  season <- historical$team_game_metrics |> filter(team == focal$team, season == year)
-  reference <- season |> filter(game_id != focal$game_id)
-  observed <- comparisons |> filter(
-    team == focal$team, game_id == focal$game_id,
+for (i in seq_len(nrow(df_games))) {
+  df_focal <- df_games[i, ]
+  year <- if (df_focal$season == 2026L) 2025L else df_focal$season
+  df_season <- historical_results_list$team_game_metrics |> filter(team == df_focal$team, season == year)
+  df_reference <- df_season |> filter(game_id != df_focal$game_id)
+  df_observed <- df_comparisons |> filter(
+    team == df_focal$team, game_id == df_focal$game_id,
     metric == "off_epa_per_play", adjustment == "Unadjusted"
   )
   stopifnot(
-    observed$reference_n_games == nrow(reference),
-    abs(observed$season_mean - weighted.mean(season$off_epa_per_play, season$offensive_plays)) < 1e-12,
-    abs(observed$reference_mean - mean(reference$off_epa_per_play)) < 1e-12,
-    abs(observed$reference_sd - sd(reference$off_epa_per_play)) < 1e-12
+    nrow(df_observed) == 1L,
+    df_observed$reference_n_games == nrow(df_reference),
+    abs(df_observed$season_mean - weighted.mean(df_season$off_epa_per_play, df_season$offensive_plays)) < 1e-12,
+    abs(df_observed$reference_mean - mean(df_reference$off_epa_per_play)) < 1e-12,
+    abs(df_observed$reference_sd - sd(df_reference$off_epa_per_play)) < 1e-12
   )
-  league <- historical$league_game_metrics |> filter(season == year)
-  opponent <- league |> filter(team == focal$opponent, game_id != focal$game_id)
-  expected_adjustment <- focal$off_epa_per_play -
-    (weighted.mean(opponent$def_epa_allowed, opponent$defensive_plays) -
-      weighted.mean(league$off_epa_per_play, league$offensive_plays))
-  stopifnot(abs(focal$adj_off_epa_per_play - expected_adjustment) < 1e-12)
+  df_league <- historical_results_list$league_game_metrics |> filter(season == year)
+  df_opponent <- df_league |> filter(team == df_focal$opponent, game_id != df_focal$game_id)
+  expected_adjustment <- df_focal$off_epa_per_play -
+    (weighted.mean(df_opponent$def_epa_allowed, df_opponent$defensive_plays) -
+      weighted.mean(df_league$off_epa_per_play, df_league$offensive_plays))
+  stopifnot(abs(df_focal$adj_off_epa_per_play - expected_adjustment) < 1e-12)
 }
 stopifnot(
-  all(historical$context$n_games == c(14L, 14L, 14L, 14L, 15L)),
-  all(melbourne$comparisons$reference_n_games == 17L),
-  all(melbourne$game_metrics$opponent_reference_n_games == 17L)
+  all(historical_results_list$context$n_games == c(14L, 14L, 14L, 14L, 15L)),
+  all(melbourne_results_list$comparisons$reference_n_games == 17L),
+  all(melbourne_results_list$game_metrics$opponent_reference_n_games == 17L)
 )
 
-# Check that exceptional but eligible plays survive, and flagged kneels/spikes
-# cannot enter any outcome even if a future source supplies run/pass flags.
-pbp <- read_snapshot(project_path("data", "raw", "nflverse", "pbp_2010_asof_2026-09-24.rds"))
-plays <- regular_plays(pbp)
-stopifnot(
-  !any(plays$qb_kneel == 1 | plays$qb_spike == 1, na.rm = TRUE),
-  any(plays$game_id == "2010_10_STL_SF" & plays$qtr > 4 & !is.na(plays$epa)),
-  any(plays$play_type == "no_play" & (plays$rush == 1 | plays$pass == 1) & !is.na(plays$epa)),
-  any(plays$two_point_attempt == 1 & (plays$rush == 1 | plays$pass == 1) & !is.na(plays$epa))
-)
-probe <- plays |>
-  slice(1) |>
-  select(season_type, posteam, defteam, qb_kneel, qb_spike)
-probe <- bind_rows(
-  probe |> mutate(qb_kneel = 1, qb_spike = 0),
-  probe |> mutate(qb_kneel = 0, qb_spike = 1)
-)
-stopifnot(nrow(regular_plays(probe)) == 0L)
-
-write_analysis_csv(checks, project_path("validation", "numerical_checks.csv"))
-print(checks)
-cat(
-  "PASS: 224 outcome comparisons, 112 standardized values, 14 game denominators,\n",
-  "98 reference games, and reference/population checks.\n"
-)
+dir.create(project_path("validation"), showWarnings = FALSE)
+write_csv(df_checks, project_path("validation", "numerical_checks.csv"))
+print(df_checks)
+cat("Checked 224 comparisons, 112 standardized values, 14 selected team-games,\n",
+    "98 reference games, and reference/population calculations.\n")

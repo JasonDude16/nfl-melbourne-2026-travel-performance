@@ -11,8 +11,8 @@ manuscript_theme <- function() {
 }
 
 # Save manuscript PNGs; request a vector PDF explicitly when needed.
-save_paper_figure <- function(figure, stem, width, height, export_pdf = FALSE) {
-  directory <- project_path("figures")
+save_paper_figure <- function(figure, stem, width, height, export_pdf = FALSE,
+                              directory = project_path("figures")) {
   dir.create(directory, recursive = TRUE, showWarnings = FALSE)
   ggplot2::ggsave(file.path(directory, paste0(stem, ".png")), figure,
                   width = width, height = height, dpi = 600, bg = "white")
