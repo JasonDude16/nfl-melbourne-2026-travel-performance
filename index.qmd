@@ -647,14 +647,6 @@ directly measure sleep, fatigue, light exposure, circadian phase, and
 performance to determine how these outcomes are affected by arrival
 timing during international competition and after return travel.
 
-# Funding
-
-No funding was received for this study.
-
-# Disclosure of interest
-
-The authors report no competing interests.
-
 # Data and code availability
 
 The NFL play-by-play and schedule data used in this study were obtained
@@ -662,13 +654,5 @@ from the publicly available nflverse project. Archived versions of the
 data used for the analyses, along with all analysis code required to
 reproduce the results, tables, and figures, are available at
 <https://github.com/JasonDude16/nfl-melbourne-2026-travel-performance>.
-
-# Generative-AI disclosure
-
-OpenAI Codex was used to assist with literature searches and reference
-checking, development and revision of the analysis code, figure
-preparation, and manuscript drafting and editing. The authors take
-responsibility for the content of the manuscript, including the
-analyses, interpretations, and references.
 
 # References
