@@ -10,9 +10,9 @@ editor_options:
 
 # Setup
 
-This notebook loads the archived data, defines the selected games, and compares their schedule and play-by-play records. It then calculates game-level performance, opponent adjustments, and season comparisons. Results are presented first for Melbourne and then for the historical London games.
+This notebook loads either the archived data or a fresh nflverse download, defines the selected games, and compares their schedule and play-by-play records. It then calculates game-level performance, opponent adjustments, and season comparisons. Results are presented first for Melbourne and then for the historical London games.
 
-Schedule, scoring, closing point-spread, and play-by-play data were obtained from nflverse on September 24, 2026. The analysis uses the saved copies from that date. Data from the 2010, 2013, 2017, 2019, and 2025 regular seasons provide the season comparisons and information about opponents. The 2026 data provide the Melbourne game and each team’s first following game.
+Schedule, scoring, closing point-spread, and play-by-play data were obtained from nflverse on September 24, 2026. By default, the analysis uses the saved copies from that date. The optional nflverse mode uses currently available data, which may include revisions. Data from the 2010, 2013, 2017, 2019, and 2025 regular seasons provide the season comparisons and information about opponents. The 2026 data provide the Melbourne game and each team’s first following game.
 
 The first regular-season game after each trip is also included. Together, these games provide 14 team performances: ten from the historical episodes and four from Melbourne and the two following games. Melbourne contributes two performances because both teams are included in the study.
 
@@ -49,31 +49,65 @@ source(project_path("R", "melbourne_performance_figure.R"))
 source(project_path("R", "contextual_tables.R"))
 ```
 
-The schedule and play-by-play snapshots are loaded once here. The play-by-play datasets are stored in `pbp_list`, with one entry named for each season, so later calculations can retrieve the relevant season without reading the files again.
+Set `data_source` to `"archive"` to reproduce the submitted analysis from the September 24, 2026 snapshots, or to `"nflverse"` to download the currently available data for the selected seasons. Both modes load the data once and store play-by-play records in a list named by season. Changing the data source does not change the selected games or the use of 2025 as Melbourne’s reference season.
 
 ```{r}
-#| label: archived-inputs
+#| label: load-data
 #| code-fold: true
 
-snapshot_date <- "2026-09-24"
+data_source <- "archive"  # "archive" or "nflverse"
 seasons <- c(2010, 2013, 2017, 2019, 2025, 2026)
 
-pbp_paths <- project_path(
-  "data", "raw", "nflverse",
-  paste0("pbp_", seasons, "_asof_", snapshot_date, ".rds")
-) |>
-  set_names(seasons)
+if (data_source == "archive") {
+  snapshot_date <- "2026-09-24"
+  retrieved_at <- NA
+  output_root <- project_path()
 
-schedule_path <- project_path(
-  "data", "raw", "nflverse",
-  paste0(
-    "schedules_", paste(seasons, collapse = "_"),
-    "_asof_", snapshot_date, ".rds"
+  pbp_paths <- project_path(
+    "data", "raw", "nflverse",
+    paste0("pbp_", seasons, "_asof_", snapshot_date, ".rds")
+  ) |> set_names(seasons)
+
+  schedule_path <- project_path(
+    "data", "raw", "nflverse",
+    paste0("schedules_", paste(seasons, collapse = "_"),  "_asof_", snapshot_date, ".rds")
   )
-)
 
-pbp_list <- map(pbp_paths, ~ as_tibble(readRDS(.x)))
-df_schedules <- as_tibble(readRDS(schedule_path))
+  pbp_list <- map(pbp_paths, ~ as_tibble(readRDS(.x)))
+  df_schedules <- as_tibble(readRDS(schedule_path))
+  
+} else if (data_source == "nflverse") {
+  # Clear cached responses so this run requests the current nflverse files.
+  nflreadr::clear_cache()
+  pbp_list <- map(set_names(seasons), ~ as_tibble(nflreadr::load_pbp(.x)))
+  df_schedules <- as_tibble(nflreadr::load_schedules(seasons))
+
+  snapshot_date <- NA
+  pbp_paths <- NULL
+  schedule_path <- NULL
+  download_time <- Sys.time()
+  retrieved_at <- format(download_time, "%Y-%m-%d %H:%M:%S UTC", tz = "UTC")
+  output_root <- project_path(
+    "outputs", 
+    "nflverse",
+    format(download_time, "%Y%m%dT%H%M%SZ", tz = "UTC")
+    
+  )
+} else {
+  stop('Choose data_source = "archive" or "nflverse".')
+}
+
+derived_directory <- file.path(output_root, "data", "derived")
+figure_directory <- file.path(output_root, "figures")
+table_directory <- file.path(output_root, "tables")
+
+df_data_source <- tibble(
+  source = data_source,
+  seasons = paste(seasons, collapse = ", "),
+  archive_date = snapshot_date,
+  retrieved_at = retrieved_at,
+  output_directory = output_root
+)
 ```
 
 The game registry identifies each selected team-game and its expected opponent, week, and final score. The reference-team table identifies the team-seasons used for comparison: the corresponding seasons for the historical episodes and 2025 for both Melbourne teams.
@@ -355,6 +389,7 @@ The table compares final scores from the registry, schedule, and play-by-play re
 
 ```{r}
 df_pbp_validation <- map_dfr(seasons, validate_pbp_scores)
+
 df_pbp_validation |>
   transmute(
     team,
@@ -819,7 +854,7 @@ compare_with_reference <- function(df_focal_games, df_reference_games) {
     )
 
   df_focal_values <- game_metrics_long(df_focal_games) |>
-    mutate(reference_season = if_else(season == 2026L, 2025L, season)) |>
+    mutate(reference_season = if_else(season == 2026, 2025, season)) |>
     select(
       season, team, game_id, phase, metric, label, direction, adjustment,
       standardize, reference_season, target_value = value
@@ -864,7 +899,7 @@ compare_with_reference <- function(df_focal_games, df_reference_games) {
       standardized_score = if_else(
         standardize,
         direction * (target_value - reference_mean) / reference_sd,
-        NA_real_
+        NA
       )
     ) |>
     select(
@@ -1052,8 +1087,16 @@ melbourne_figure <- build_melbourne_performance_figure(
   df_melbourne_matchup |> filter(adjustment == "Opponent adjusted"),
   df_melbourne_game_metrics |> filter(phase == "international")
 )
-save_paper_figure(melbourne_figure, "melbourne_outcome_performance", 9, 9.4)
-melbourne_figure
+
+save_paper_figure(
+  melbourne_figure,
+  "melbourne_outcome_performance",
+  width = 9,
+  height = 9.4,
+  directory = figure_directory
+)
+
+print(melbourne_figure)
 ```
 
 ### First games after Melbourne
@@ -1123,15 +1166,20 @@ historical_figures_list <- build_historical_figures(
 save_paper_figure(
   historical_figures_list$outcomes, 
   "historical_score_market_baselines", 
-  9, 5.85
+  width = 9, 
+  height = 5.85, 
+  directory = figure_directory
 )
 
 save_paper_figure(
   historical_figures_list$performance,
   "historical_international_return_play_metrics",
-  9, 6.25
+  width = 9, 
+  height = 6.25, 
+  directory = figure_directory
 )
-historical_figures_list$outcomes
+
+print(historical_figures_list$outcomes)
 ```
 
 ### Historical standardized performance (Figure 4)
@@ -1150,7 +1198,7 @@ historical_figures_list$performance
 
 ## Save the analysis results
 
-The following chunk saves the input information and result bundles as RDS files, and the score comparisons and analysis results as CSV files in `data/derived/`.
+The following chunk saves the input information and result bundles as RDS files, and the source summary, score comparisons, and analysis results as CSV files. Archive runs write to `data/derived/`; nflverse runs write to the corresponding directory within the separate run folder shown above.
 
 ```{r}
 #| label: export-analysis
@@ -1158,7 +1206,9 @@ The following chunk saves the input information and result bundles as RDS files,
 
 inputs_list <- list(
   snapshot_date = snapshot_date,
+  provenance = df_data_source,
   pbp_paths = pbp_paths,
+  schedule_path = schedule_path,
   schedules = df_schedules,
   game_registry = df_game_registry,
   reference_team_seasons = df_reference_team_seasons
@@ -1166,6 +1216,7 @@ inputs_list <- list(
 
 historical_results_list <- list(
   snapshot_date = snapshot_date,
+  provenance = df_data_source,
   league_game_metrics = df_league_game_metrics,
   team_game_metrics = df_team_game_metrics,
   game_metrics = df_historical_game_metrics,
@@ -1175,6 +1226,7 @@ historical_results_list <- list(
 
 melbourne_results_list <- list(
   snapshot_date = snapshot_date,
+  provenance = df_data_source,
   game_metrics = df_melbourne_game_metrics,
   comparisons = df_melbourne_comparisons
 )
@@ -1188,13 +1240,14 @@ analysis_exports_list <- list(
   melbourne_reference_comparisons = df_melbourne_comparisons
 )
 
-dir.create(project_path("data", "derived"), recursive = TRUE, showWarnings = FALSE)
-saveRDS(inputs_list, project_path("data", "derived", "validated_inputs.rds"))
-saveRDS(historical_results_list, project_path("data", "derived", "historical_results.rds"))
-saveRDS(melbourne_results_list, project_path("data", "derived", "melbourne_results.rds"))
+dir.create(derived_directory, recursive = TRUE, showWarnings = FALSE)
+write_csv(df_data_source, file.path(derived_directory, "data_source.csv"), na = "")
+saveRDS(inputs_list, file.path(derived_directory, "validated_inputs.rds"))
+saveRDS(historical_results_list, file.path(derived_directory, "historical_results.rds"))
+saveRDS(melbourne_results_list, file.path(derived_directory, "melbourne_results.rds"))
 
 iwalk(analysis_exports_list, function(df_data, name) {
-  path <- project_path("data", "derived", paste0(name, ".csv"))
+  path <- file.path(derived_directory, paste0(name, ".csv"))
   write_csv(df_data, path, na = "")
 })
 ```
@@ -1207,14 +1260,16 @@ The statistical figures were saved as PNGs in their results sections. The follow
 #| label: export-context-table
 #| code-fold: true
 
-dir.create(project_path("tables"), recursive = TRUE, showWarnings = FALSE)
+dir.create(table_directory, recursive = TRUE, showWarnings = FALSE)
 gt::gtsave(
   gt_context_table,
-  project_path("tables", "table_1_historical_international_context.png"),
-  vwidth = 1300, vheight = 900, expand = 10
+  file.path(table_directory, "table_1_historical_international_context.png"),
+  vwidth = 1300, 
+  vheight = 900, 
+  expand = 10
 )
 save_historical_context_docx(
   gt_context_table,
-  project_path("tables", "table_1_historical_international_context.docx")
+  file.path(table_directory, "table_1_historical_international_context.docx")
 )
 ```
